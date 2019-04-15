@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="row wrapper white-bg page-heading">
+		        <div class="col-sm-4">
+		            <ol class="breadcrumb">
+		                <li>主页</li>
+		                <li><strong>用户列表</strong></li>
+		            </ol>
+		        </div>
+		    </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+						<div class="search-area" id="toggle">
+							<form class="form-horizontal m-t" th:action="@{/user/index}" method="get">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">请输入账号或邮箱进行搜索：</label>
+									<div class="col-sm-3">
+										<input name="search['name']"  type="text" class="form-control"  th:value="${search['name']}"/>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>请输入账号或邮箱进行搜索</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">请输入昵称进行搜索：</label>
+									<div class="col-sm-3">
+										<input name="search['nickname']"  type="text" class="form-control"  th:value="${search['nickname']}"/>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>请输入昵称进行搜索</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">状态：</label>
+									<div class="col-sm-3">
+										<select class="form-control" name="search['status']"  >
+											<option value="" th:selected="${search['status']==''}">全部</option>
+											<option value="1" th:selected="${search['status']=='1'}">启用</option>
+											<option value="2" th:selected="${search['status']=='2'}">禁用</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 col-sm-offset-1">
+										<button class="btn btn-primary" type="submit" onclick="resetPageNum();">搜索</button>
+										<a th:href="@{/user/index}" class="btn btn-default">撤销搜索</a>
+									</div>
+								</div>
+							</form>
+						</div>
+                        <div class="fixed-table-toolbar">
+							<div class="bars pull-left">
+								<a href="javascript:void(0);" class="btn btn-sm btn-primary search-toggle"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</a>
+								<span th:each="userUrl:${session.urlList}">
+									<span  th:if="${userUrl== 'user/add'}">
+									   <a th:href="@{/user/add}" class="btn btn-sm btn-primary" ><i class="fa fa-plus"></i>&nbsp;&nbsp;增加</a>
+									</span>
+								  	<span  th:if="${userUrl== 'user/remove'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post" target-form="uid" th:attr="url=@{/member/remove}"><i class="fa fa-close"></i>&nbsp;&nbsp;删除</a>
+									</span>
+									<span  th:if="${userUrl== 'user/state/1'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post" target-form="uid" th:attr="url=@{/member/state/1}"><i class="fa fa-check"></i>&nbsp;&nbsp;启用</a>
+									</span>
+									<span  th:if="${userUrl== 'user/state/2'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post" target-form="uid" th:attr="url=@{/member/state/2}"><i class="fa fa-ban"></i>&nbsp;&nbsp;禁用</a>
+									</span>
+								</span>
+							</div>
+						</div>
+                        <div class="example-wrap">
+                            <div class="example">
+                            	<form  action="" method="get" th:action="@{/user/index}" id="form">
+                            	<input name="search['name']" type="hidden" class="form-control"  th:value="${search['name']}"/>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="i-checks check-all " /></th>
+											<th>用户ID</th>
+											<th >手机</th>
+                                            <th >邮箱账号</th>
+                                            <th>用户昵称 </th>
+                                            <th>所属角色 </th>
+											<th>用户总余额</th>
+											<th >状态</th>
+											<th >操作</th>
+                                        </tr>
+                                    </thead>
+									<tbody>
+										<tr th:each="index ,iterStat: ${page.list}">
+											<td><input type="checkbox" class="i-checks ids" name="uid[]" th:value="${index.uid}"/></td>
+											<td th:text="${index.uid}"></td>
+											<td th:text="${index.phone}"></td>
+											<td th:text="${index.email}"></td>
+											<td th:text="${index.nickname}"></td>
+											<td th:text="${index.authGroupName}"></td>
+											<td th:text="${index.balance}"></td>
+											<td>
+												<i th:class="${index.status == 1} ?'fa fa-check text-navy':'fa fa-check fa-close'"></i>
+											</td>
+											<td>
+												<div class="actions">
+													<span th:each="menuUrl:${session.urlList}">
+														<span  th:if="${menuUrl== 'member/edit'}">
+															<a th:href="@{/user/edit(uid=${index.uid})}" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i> 编辑 </a>
+													  	</span>
+														<span  th:if="${menuUrl== 'user/remove'}">
+															<a href="javascript:void(0);"  class="btn btn-xs btn-white confirm tabledel ajax-post" th:attr="url=@{/member/remove(uid=${index.uid})}"><i class="fa fa-times-circle"></i> 删除 </a>
+														</span>
+														<span  th:if="${menuUrl== 'user/look'}">
+															<a th:href="@{/user/look(uid=${index.uid})}" class="btn btn-xs btn-white"><i class="fa fa-eye"></i> 查看 </a>
+														</span>
+
+													 </span>
+												</span>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+                                </table>
+									<div th:include="base/page::body"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	</body>
+	<script src="/js/page.js"></script>
+	<div th:include="base/header::footer"></div>
+</html>

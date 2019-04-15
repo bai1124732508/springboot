@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="/css/home/index.css" rel="stylesheet" />
+    <style>
+        .navbar-fixed-top, .navbar-static-top {
+            min-height: 63px;
+        }
+        @media (min-width: 768px){
+            .navbar-nav>li {
+                min-height: 63px;
+                line-height: 52px;
+            }
+        }
+        .admin_top_menu {
+            padding-top: 0px !important;
+            padding-bottom: 0px!important;
+        }
+        img {
+            vertical-align: inherit;
+        }
+        .logoSpan {
+            line-height: 63px;
+        }
+        .nav.nav-second-level li:hover{
+            background: none;
+            color:#666;
+        }
+        #side-menu li:hover,#side-menu li:hover a{
+            background-color: #F2F2F2;
+        }
+        .nav>li>a {
+            color:#666 !important;
+            font-weight: 500;
+        }
+        .admin_top_menu{
+            font-size: 16px;
+        }
+        .logoli{
+            margin-right: 20px;
+        }
+        .exit_button_group>div>i,.exit_button_group>div>span{
+            cursor: pointer;
+        }
+        .msgRed{
+            color: red;
+        }
+    </style>
+</head>
+<div th:include="base/header::head"></div>
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper" style="overflow-y:hidden;">
+        <!--左侧导航开始-->
+        <!--class="navbar-default navbar-static-side "-->
+        <nav class="navbar-default navbar-static-side " role="navigation" class="navbar-default navbar-static-side lang_zh_CN" >
+            <div class="nav-close"><i class="fa fa-times-circle"></i></div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu" ></ul>
+            </div>
+        </nav>
+
+
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+			<nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px;">
+				<div class="">
+					<ul class="nav navbar-nav">
+                        <li class="logoli lang_zh_CN">
+                            <img alt="" class="logoSvg" th:src="${#strings.isEmpty(logoPath)?'/img/logo/u121.svg':logoPath}"><span class="logoSpan" th:text="${#strings.isEmpty(platformName)?'英威腾服务系统':platformName  }"></span>
+                        </li>
+						<li th:each="menu:${session.menulist}" class="navbar_top_menu admin_top_menu" th:id="${menu.url}">
+                            <div  th:onclick="'getprivilege('+${menu.id}+',this)'" th:id="${menu.id}">
+                                <!--<i th:attr="class=${menu.icon}"></i>-->
+                                <div style="margin-top:5px;"></div>
+                                <span th:text="${menu.title}"></span>
+                            </div>
+                        </li>
+					</ul>
+				</div>
+			</nav>
+            </li>
+			<div class="exit_button_group nav_right_box">
+               <div style="display: inherit;text-align: center;color: white;font-family: open sans,Helvetica Neue,Helvetica,Arial,sans-;font-size: 13px;">
+                   <ul class="nav navbar-top-links navbar-right">
+                       <li class="dropdown">
+                           <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                               <!--<i class="fa fa-bell"></i> <span class="label label-primary">8</span>-->
+                               <i class="fa fa-user" style="font-size: 20px;margin-right: 10px; margin-left: 40px;"></i>
+                               <span th:text="|${session.user.nickname}|"></span>
+                           </a>
+                           <ul class="dropdown-menu dropdown-alerts">
+                               <li>
+                                   <a >
+                                       <div>
+                                           <span >基本信息</span>
+                                       </div>
+                                   </a>
+                               </li>
+                               <li class="divider"></li>
+                               <li onclick="changePassword();">
+                                   <a >
+                                       <div>
+                                           <span >修改密码</span>
+                                       </div>
+                                   </a>
+                               </li>
+                           </ul>
+                       </li>
+                       <li class="dropdown" th:if="${isShowMsg}">
+                           <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                               <i class="fa fa-bell-o" style="font-size: 20px;margin-left: 40px;"></i>
+                               <span class="label label-danger" th:if="${ msgCount['all'] != 0  and msgCount['all'] != '0'}"  id="msgLabelDanger" th:text="${ msgCount['all'] }"></span>
+                           </a>
+                           <ul class="dropdown-menu dropdown-alerts">
+                               <li onclick="msgClick('all')">
+                                   <a >
+                                       <div class="nav_list">
+                                           <span >全部消息</span>
+                                           <span class="pull-right text-muted" id="msgType" >
+                                               <span th:class="${msgCount['all'] == '0' ? '' : 'msgRed' }" th:text="${'（'+ msgCount['all'] +'）'}"></span>
+                                           </span>
+                                       </div>
+                                   </a>
+                               </li>
+                               <li class="divider"></li>
+                               <li onclick="msgClick('1')">
+                                   <a >
+                                       <div>
+                                           <span >警告消息</span>
+                                           <span class="pull-right text-muted" id="msgType1" th:value="${ msgCount['1'] }">
+                                               <span th:class="${msgCount['1'] =='0'? '' : 'msgRed' }" th:text="${'（'+ msgCount['1'] +'）'}"></span>
+                                           </span>
+                                       </div>
+                                   </a>
+                               </li>
+                               <li class="divider"></li>
+                               <li onclick="msgClick('2')">
+                                   <a >
+                                       <div>
+                                           <span >故障消息</span>
+                                           <span class="pull-right text-muted " id="msgType2" th:value="${ msgCount['2'] }">
+                                               <span th:class="${msgCount['2'] == '0' ? '' : 'msgRed' }" th:text="${'（'+ msgCount['2'] +'）'}"></span>
+                                           </span>
+                                       </div>
+                                   </a>
+                               </li>
+                           </ul>
+                       </li>
+                       <li>
+                           <i class="fa fa-power-off" style="font-size: 20px;margin-left: 40px;" onclick="logo_out();"></i>
+                       </li>
+                   </ul>
+
+               </div>
+            </div>
+            <div class="row J_mainContent" id="content-main" style="margin-top: 63px;" class="lang_zh_CN">
+                <iframe class="J_iframe" name="iframe0" id="iframe0" width="100%" height="100%" th:src="@{/home/public}" frameborder="0" th:attr="data-id=@{home/public}" seamless="seamless" ></iframe>
+            </div>
+            <div class="footer">
+                <div class="pull-right">英威腾服务系统（北京）有限公司@版权所有</div>
+            </div>
+        </div>
+        <!--右侧部分结束-->
+    </div>
+
+    <div class="ibox float-e-margins" style="display: none;"  id="changepassword" >
+        <style>
+            .form-horizontal .form-group {
+                 margin-right: 0px;
+                 margin-left: 0px;
+            }
+        </style>
+        <form id="layerform_psd"  class="form-horizontal m-t"  th:action="@{/api/user/change_pwd}" method="post">
+            <div>
+                <input type="hidden" name="newPassword" id="newPassword">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" >密码：</label>
+                    <div class="col-sm-6">
+                        <input name="password" class="form-control" type="text" placeholder="请输入密码" datatype="/^\w{6,16}$/"  nullmsg="请输入密码" errormsg="由数字、26个英文字母或者下划线组成的2~16位字符串"/>
+                        <span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 输入登录密码</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" >再次输入密码：</label>
+                    <div class="col-sm-6">
+                        <input name="password2" class="form-control" type="text" datatype="/^\w{6,16}$/"   recheck="password" errormsg="两次输入的密码不一致！"/>
+                        <span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 再次输入密码</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <script th:inline="javascript">
+       var admin_menu = [[${session.menulistJson}]];
+       var uid = [[${session.user.uid}]];
+ 	   document.onkeydown=function(event){
+	    	e = event ? event :(window.event ? window.event : null);
+	    	  if(e.keyCode==116){
+   	    		e.preventDefault(); //组织默认刷新
+	       	    var iframeSrc = $(".J_menuTabs").find('.active').attr("data-id");
+	       		$('iframe').attr('src',iframeSrc);
+	    	  }
+	    	}
+    </script>
+    <div th:include="base/header::footer"></div>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/js/hplus.min.js"></script>
+    <script src="/js/contabs.min.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+    <script src="/js/home/index.js"></script>
+    <script src="/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+    <script src="/js/webSocket.js"></script>
+</body>
+
+</html>

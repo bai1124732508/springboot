@@ -1,0 +1,23 @@
+#warning{
+	color: #F8AC59;
+	font-size: 18px;
+}
+
+#warningDiv{
+	position: absolute;
+	left: 170px;
+	top: 20px;
+	z-index: 1000;
+}
+#warningDiv .panel-body span{
+	padding-left:2em;
+}
+.levelPath{
+	width: 80px;
+	height: 80px;
+}
+.layui-layer-input{
+	width: 450px;
+	height: 160px;
+	
+}

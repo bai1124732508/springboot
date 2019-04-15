@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.SysLogMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.SysLog" >
+    
+    <!-- 标识 -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    
+    <!-- 日志描述 -->
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    
+    <!-- 日志描述英文 -->
+    <result column="description_en" property="descriptionEn" jdbcType="VARCHAR" />
+    
+    <!-- 日志类别 -->
+    <result column="method" property="method" jdbcType="VARCHAR" />
+    
+    <!-- 日志的类型 -->
+    <result column="log_type" property="logType" jdbcType="INTEGER" />
+    
+    <!-- 操作ip -->
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    
+    <!-- ip 所在地 -->
+    <result column="ip_address" property="ipAddress" jdbcType="VARCHAR" />
+    
+    <!-- 异常标识码 -->
+    <result column="exception_code" property="exceptionCode" jdbcType="VARCHAR" />
+    
+    <!-- 异常原因 -->
+    <result column="exception_detail" property="exceptionDetail" jdbcType="VARCHAR" />
+    
+    <!-- 用户标识 -->
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    
+    <!-- CURRENT_TIMESTAMP -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    
+    <!-- 设备类型 0.pc 1.app -->
+    <result column="equipment_type" property="equipmentType" jdbcType="BIT" />
+    
+    <!-- 操作的id 例如更改角色的id -->
+    <result column="obj_id" property="objId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fhzm.entity.generator.SysLog" extends="BaseResultMap" >
+    
+    <!-- 参数 -->
+    <result column="params" property="params" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, description, description_en, method, log_type, ip, ip_address, exception_code, 
+    exception_detail, create_id, create_name, ctime, equipment_type, obj_id
+  </sql>
+  <sql id="Base_Column_List2" >
+    syslog.id, syslog.description, syslog.description_en, syslog.method, syslog.log_type, syslog.ip, syslog.ip_address, syslog.exception_code,
+    syslog.exception_detail, syslog.create_id, syslog.create_name, syslog.ctime, syslog.equipment_type, syslog.obj_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    params
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into sys_log (id, description, description_en, 
+      method, log_type, ip, 
+      ip_address, exception_code, exception_detail, 
+      create_id, create_name, ctime, 
+      equipment_type, obj_id, params
+      )
+    values (#{id,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{descriptionEn,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{logType,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, 
+      #{ipAddress,jdbcType=VARCHAR}, #{exceptionCode,jdbcType=VARCHAR}, #{exceptionDetail,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=VARCHAR}, #{createName,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{equipmentType,jdbcType=BIT}, #{objId,jdbcType=VARCHAR}, #{params,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" >
+    insert into sys_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="descriptionEn != null" >
+        description_en,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="logType != null" >
+        log_type,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="ipAddress != null" >
+        ip_address,
+      </if>
+      <if test="exceptionCode != null" >
+        exception_code,
+      </if>
+      <if test="exceptionDetail != null" >
+        exception_detail,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createName != null" >
+        create_name,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="equipmentType != null" >
+        equipment_type,
+      </if>
+      <if test="objId != null" >
+        obj_id,
+      </if>
+      <if test="params != null" >
+        params,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null" >
+        #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null" >
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionCode != null" >
+        #{exceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionDetail != null" >
+        #{exceptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentType != null" >
+        #{equipmentType,jdbcType=BIT},
+      </if>
+      <if test="objId != null" >
+        #{objId,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null" >
+        #{params,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update sys_log
+    <set >
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionEn != null" >
+        description_en = #{descriptionEn,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="logType != null" >
+        log_type = #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null" >
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionCode != null" >
+        exception_code = #{exceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionDetail != null" >
+        exception_detail = #{exceptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null" >
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentType != null" >
+        equipment_type = #{equipmentType,jdbcType=BIT},
+      </if>
+      <if test="objId != null" >
+        obj_id = #{objId,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null" >
+        params = #{params,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" >
+    update sys_log
+    set description = #{description,jdbcType=VARCHAR},
+      description_en = #{descriptionEn,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      log_type = #{logType,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      exception_code = #{exceptionCode,jdbcType=VARCHAR},
+      exception_detail = #{exceptionDetail,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_name = #{createName,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      equipment_type = #{equipmentType,jdbcType=BIT},
+      obj_id = #{objId,jdbcType=VARCHAR},
+      params = #{params,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update sys_log
+    set description = #{description,jdbcType=VARCHAR},
+      description_en = #{descriptionEn,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      log_type = #{logType,jdbcType=INTEGER},
+      ip = #{ip,jdbcType=VARCHAR},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      exception_code = #{exceptionCode,jdbcType=VARCHAR},
+      exception_detail = #{exceptionDetail,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_name = #{createName,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      equipment_type = #{equipmentType,jdbcType=BIT},
+      obj_id = #{objId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="getList" resultMap="BaseResultMap" parameterType="com.fhzm.entity.generator.BaseQueryVo" >
+    SELECT
+      <include refid="Base_Column_List2"/>
+      <if test="search != null">
+        <if test="search.logType == 2"><!-- 权限操作日志-->
+          ,authGroup.title AS authGroupName
+        </if>
+      </if>
+    FROM
+    sys_log syslog
+    <if test="search != null">
+      <if test="search.logType == 2"><!-- 权限操作日志-->
+        LEFT JOIN  auth_group authGroup ON syslog.obj_id = authGroup.id
+      </if>
+    </if>
+    <where>
+      <if test="search != null">
+        <if test="search.logType != null and search.logType != ''">
+          and syslog.log_type = #{search.logType}
+        </if>
+        <if test="search.uid != null and search.uid != ''"><!-- 普通角色只能看自己的登录日志 -->
+          and syslog.create_id = #{search.uid}
+        </if>
+        <if test="search.description != null and search.description != ''">
+          <![CDATA[and (syslog.description like '%${search.description}%' or syslog.description_en like '%${search.description}%')]]>
+        </if>
+      </if>
+    </where>
+    ORDER BY syslog.ctime DESC
+  </select>
+
+  <delete id="deleteBySearch" parameterType="java.util.Map">
+    delete from sys_log
+    where
+      log_type = #{logType}
+  </delete>
+
+  <select id="getSyslogList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+    <include refid="Base_Column_List2"/>
+      <if test="logType == 2">
+        ,authGroup.title AS authGroupName
+      </if>
+    FROM
+    sys_log syslog
+      <if test="logType == 2">
+        LEFT JOIN  auth_group authGroup ON syslog.obj_id = authGroup.id
+      </if>
+    <where>
+        <if test="logType != null and logType!=''">
+          syslog.log_type = #{logType}
+        </if>
+        <if test="description != null and description!=''">
+          <![CDATA[and (syslog.description like '%${description}%' or syslog.description_en like '%${description}%')]]>
+        </if>
+    </where>
+    ORDER BY syslog.ctime DESC
+  </select>
+
+
+</mapper>

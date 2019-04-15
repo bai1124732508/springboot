@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body  class="gray-bg">
+	    <div class="wrapper wrapper-content animated fadeInRight">
+	                <div class="ibox float-e-margins">
+	                    <div class="row wrapper white-bg page-heading">
+					        <div class="col-sm-4">
+					            <ol class="breadcrumb">
+					                <li>主页</li>
+					                <li><a th:href="@{/menu/index}">菜单管理</a></li>
+					                <li><strong>编辑菜单</strong></li>
+					            </ol>
+					        </div>
+					    </div>
+	                    <div class="ibox-content">
+	                        <form id="f"  class="form-horizontal m-t"  th:action="@{/menu/edit}" method="post">
+	                        <input type="hidden" name="selectId" id="selectId" th:value="${menu.pid}"/>
+	                          <input type="hidden" name="id" id="id" th:value="${menu.id}"/>
+	                            <div class="form-group">
+	                                <label class="col-sm-1 control-label">菜单名称</label>
+	                                <div class="col-sm-3">
+	                                    <input name="title" class="form-control" type="text" th:value="${menu.title}" datatype="*1-20" nullmsg="请输入菜单名称" errormsg="菜单名称是1-20位的字符串！"/>
+	                                    <span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 显示的菜单或是展示的功能名称</span>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-1 control-label">分组名称</label>
+	                                <div class="col-sm-3">
+	                                    <input name="groupId" class="form-control" th:value="${menu.groupId}" type="text" datatype="*1-20" nullmsg="请输入分组名称" errormsg="分组名称是1-20位的字符串！"/>
+	                                    <span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 将菜单进行分株，显示在左侧导航栏中</span>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-1 control-label">选择上级菜单：</label>
+	                                <div class="col-sm-3">
+										<select class="form-control" id="pid"   name="pid">
+										 <option value="0" th:selected="${'0'==menu.pid}">顶级菜单</option>
+										 <span th:each="smenu:${menulist}" th:if="'0' ==${smenu.pid}">
+											 <option  th:value="${smenu.id}" th:text="'┣'+${smenu.title}"></option>
+										 	 <span th:each="cmenu:${menulist}" th:if="${cmenu.pid} ==${smenu.id}">
+										    	 <option th:value="${cmenu.id}" th:text="'┃  ┣'+${cmenu.title}"></option>
+										 	 	 <span th:each="dmenu:${menulist}" th:if="${dmenu.pid} ==${cmenu.id}" >
+										    	 	<option   th:value="${dmenu.id}" th:text="'┃  ┃ ┣'+${dmenu.title}"></option>
+										 	 	 </span>
+										 	 </span>
+										 </span>
+										</select>
+										<span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i>  选择当前菜单所属上级，不选默认为根菜单</span> 
+	                                </div>
+	                            </div>
+								<div class="form-group">
+	                                <label class="col-sm-1 control-label">url地址：</label>
+	                                <div class="col-sm-3">
+	                                    <input name="url" class="form-control" type="text" th:value="${menu.url}" datatype="*2-120" nullmsg="请输入访问地址" errormsg="url范围在2~120位之间的字符串！"/>
+	                                    <span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 将控制器和方法名填写例如:user/index</span>
+	                                </div>
+	                            </div>
+								<div class="form-group">
+	                                <label class="col-sm-1 control-label">是否隐藏：</label>
+	                                <div class="col-sm-3">
+										<select class="form-control"  name="hide">
+										  <option th:selected="${2==menu.hide}" value="2">显示</option>
+										  <option th:selected="${1==menu.hide}" value="1">隐藏</option>
+										</select>
+										<span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 菜单栏是否隐藏</span> 
+	                                </div>
+	                            </div>
+								<div class="form-group">
+	                                <label class="col-sm-1 control-label">是否启用：</label>
+	                                <div class="col-sm-3">
+	                                   	<select class="form-control"  name="status">
+										  <option th:selected="${2==menu.status}" value="2">禁用</option>
+										  <option th:selected="${1==menu.status}" value="1">启用</option>
+										</select>
+										<span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 菜单栏是否仅开发者模式可用</span> 	                                
+									</div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-1 control-label">排序：</label>
+	                                <div class="col-sm-3">
+	                                    <input name="sort" class="form-control" type="text" th:value="${menu.sort}" datatype="n1-5" nullmsg="请输入菜单栏的图标" errormsg="范围在1~5位之间的数字！"/>
+	                                    <span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i> 菜单栏排序,在左侧导航栏中菜单显示的顺序</span>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <div class="col-sm-2 col-sm-offset-1">
+	                                    <button class="btn btn-primary" type="submit">提交</button>
+										<button class="btn btn-default historygo" type="button">返回</button>
+	                                </div>
+	                            </div>
+	                        </form>
+	                    </div>
+	                
+	        </div>
+	    </div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/**
+			 * 加载select2 
+			 */
+			$(".selectBasic").select2({
+				  minimumResultsForSearch: Infinity
+				});
+			$("option").each(function(){
+				if($(this).val()==$("#selectId").val()){
+					$(this).attr('selected',true);
+				}
+			});
+			
+		});
+	</script>
+	<div th:include="base/header::footer"></div>
+</html>

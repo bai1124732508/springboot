@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.Message" >
+    
+    <!-- 文档ID -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    
+    <!-- 标题 -->
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="create_uid" property="createUid" jdbcType="VARCHAR" />
+    
+    <!-- 角色分组的id -->
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    
+    <!-- 消息的分类 0.系统消息 1.告警消息 2.故障消息（Term中配置） -->
+    <result column="type" property="type" jdbcType="INTEGER" />
+    
+    <!-- 状态,默认为1 ，2 已发布 -->
+    <result column="status" property="status" jdbcType="INTEGER" />
+    
+    <!-- 是否删除 0.没有删除 1.已经删除 -->
+    <result column="is_remove" property="isRemove" jdbcType="INTEGER" />
+    
+    <!-- 创建时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    
+    <!-- 修改时间 -->
+    <result column="utime" property="utime" jdbcType="TIMESTAMP" />
+    <!-- 消息内容 -->
+    <result column="info" property="info" jdbcType="LONGVARCHAR" />
+
+    <!-- 接收用户的id （逗号分隔） -->
+    <result column="receive_uid" property="receiveUid" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, create_uid, group_id, type, status, is_remove, ctime, utime, info, receive_uid
+  </sql>
+
+  <sql id="Base_Column_List2" >
+    msg.id, msg.title, msg.create_uid, msg.group_id, msg.type, msg.status, msg.is_remove, msg.ctime, msg.utime, msg.info, msg.receive_uid
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from message
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into message (id, title, create_uid, 
+      group_id, type, status, is_remove, 
+      ctime, utime, info, 
+      receive_uid)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{createUid,jdbcType=VARCHAR}, 
+      #{groupId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{isRemove,jdbcType=INTEGER}, 
+      #{ctime,jdbcType=TIMESTAMP}, #{utime,jdbcType=TIMESTAMP}, #{info,jdbcType=LONGVARCHAR}, 
+      #{receiveUid,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createUid != null" >
+        create_uid,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isRemove != null" >
+        is_remove,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="utime != null" >
+        utime,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="receiveUid != null" >
+        receive_uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createUid != null" >
+        #{createUid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isRemove != null" >
+        #{isRemove,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="receiveUid != null" >
+        #{receiveUid,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update message
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createUid != null" >
+        create_uid = #{createUid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isRemove != null" >
+        is_remove = #{isRemove,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="receiveUid != null" >
+        receive_uid = #{receiveUid,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" >
+    update message
+    set title = #{title,jdbcType=VARCHAR},
+      create_uid = #{createUid,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      is_remove = #{isRemove,jdbcType=INTEGER},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP},
+      info = #{info,jdbcType=LONGVARCHAR},
+      receive_uid = #{receiveUid,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update message
+    set title = #{title,jdbcType=VARCHAR},
+      create_uid = #{createUid,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      is_remove = #{isRemove,jdbcType=INTEGER},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getSendList" parameterType="com.fhzm.entity.generator.BaseQueryVo" resultMap="BaseResultMap">
+    SELECT
+      msg.id, msg.title, msg.create_uid, msg.group_id, msg.type, msg.status, msg.ctime, msg.utime,authMer.nickname AS authMemberName
+    from
+      message msg
+    LEFT JOIN  auth_member  authMer ON  msg.create_uid =authMer.uid
+    <where>
+      msg.is_remove = 0
+      <if test="search != null">
+        <if test="search.uid != null and search.uid!=''">
+            and msg.create_uid =#{search.uid}
+        </if>
+        <if test="search.title != null and search.title!=''">
+          <![CDATA[and msg.title like '%${search.title}%']]>
+        </if>
+        <if test="search.status != null and search.status!=''">
+            and msg.status =#{search.status}
+        </if>
+        <if test="search.type != null and search.type!=''">
+            and msg.type =#{search.type}
+        </if>
+      </if>
+    </where>
+    ORDER BY msg.utime DESC
+  </select>
+
+
+  <update id="removeByIds">
+    update message
+    <set>
+      <if test="status != null" >
+        ${fied} = #{status}
+      </if>
+    </set>
+    <where>
+      id in
+      (
+        <foreach collection="list" item="obj" index="index" separator=",">
+          #{obj}
+        </foreach>
+      )
+    </where>
+  </update>
+
+
+  <select id="getReceiveList" parameterType="com.fhzm.entity.generator.BaseQueryVo" resultMap="BaseResultMap">
+    SELECT
+      msg.id, msg.title, msg.create_uid, msg.group_id, msg.type, msg.status, msgLog.ctime,authMer.nickname AS authMemberName,
+      msgLog.id AS logId
+    from
+      message_log msgLog
+    LEFT JOIN  message  msg ON  msgLog.message_id =msg.id
+    LEFT JOIN  auth_member  authMer ON  msg.create_uid =authMer.uid
+    <where>
+      <if test="search != null">
+        <if test="search.uid != null and search.uid!=''">
+          and msgLog.uid =#{search.uid}
+        </if>
+        <if test="search.title != null and search.title!=''">
+          <![CDATA[and msg.title like '%${search.title}%']]>
+        </if>
+        <if test="search.type != null and search.type!=''">
+          and msg.type =#{search.type}
+        </if>
+      </if>
+    </where>
+    ORDER BY msgLog.ctime DESC
+  </select>
+
+
+
+</mapper>

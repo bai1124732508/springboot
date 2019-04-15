@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.ConfigsMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.Configs" >
+    
+    <!-- 配置ID -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    
+    <!-- 配置类型 -->
+    <result column="type" property="type" jdbcType="TINYINT" />
+    
+    <!-- 配置说明 -->
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    
+    <!-- 配置分组 -->
+    <result column="group" property="group" jdbcType="TINYINT" />
+    
+    <!-- 配置分组 -->
+    <result column="group_title" property="groupTitle" jdbcType="VARCHAR" />
+    
+    <!-- 配置值 -->
+    <result column="extra" property="extra" jdbcType="VARCHAR" />
+    
+    <!-- 配置说明 -->
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+    <!-- 验证规则 -->
+    <result column="datatype" property="datatype" jdbcType="VARCHAR" />
+    
+    <!-- 空值是提醒的字符串 -->
+    <result column="nullmsg" property="nullmsg" jdbcType="VARCHAR" />
+    
+    <!-- 错误时提醒的字符串 -->
+    <result column="errormsg" property="errormsg" jdbcType="VARCHAR" />
+    
+    <!-- 文本框的字符串 -->
+    <result column="placeholder" property="placeholder" jdbcType="VARCHAR" />
+    
+    <!-- 创建时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    
+    <!-- 更新时间 -->
+    <result column="utime" property="utime" jdbcType="TIMESTAMP" />
+    
+    <!-- 状态 -->
+    <result column="status" property="status" jdbcType="TINYINT" />
+    
+    <!-- 排序 -->
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <!-- 配置值 -->
+    <result column="value" property="value" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, title, group, group_title, extra, remark, datatype, nullmsg, errormsg, 
+    placeholder, ctime, utime, status, sort,value
+  </sql>
+
+  <sql id="Base_Column_List2" >
+    conf.id,   conf.type,   conf.title,   conf.group,   conf.group_title,   conf.extra,   conf.remark,   conf.datatype,   conf.nullmsg,   conf.errormsg,
+      conf.placeholder,   conf.ctime,   conf.utime,   conf.status,   conf.sort,conf.value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from configs
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from configs
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" >
+    insert into configs (id, type, title, 
+      group, group_title, extra, 
+      remark, datatype, nullmsg, 
+      errormsg, placeholder, ctime, 
+      utime, status, sort, 
+      value)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{title,jdbcType=VARCHAR}, 
+      #{group,jdbcType=TINYINT}, #{groupTitle,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{datatype,jdbcType=VARCHAR}, #{nullmsg,jdbcType=VARCHAR}, 
+      #{errormsg,jdbcType=VARCHAR}, #{placeholder,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{utime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, #{sort,jdbcType=SMALLINT}, 
+      #{value,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" >
+    insert into configs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="group != null" >
+        group,
+      </if>
+      <if test="groupTitle != null" >
+        group_title,
+      </if>
+      <if test="extra != null" >
+        extra,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="datatype != null" >
+        datatype,
+      </if>
+      <if test="nullmsg != null" >
+        nullmsg,
+      </if>
+      <if test="errormsg != null" >
+        errormsg,
+      </if>
+      <if test="placeholder != null" >
+        placeholder,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="utime != null" >
+        utime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null" >
+        #{group,jdbcType=TINYINT},
+      </if>
+      <if test="groupTitle != null" >
+        #{groupTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="extra != null" >
+        #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="datatype != null" >
+        #{datatype,jdbcType=VARCHAR},
+      </if>
+      <if test="nullmsg != null" >
+        #{nullmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="errormsg != null" >
+        #{errormsg,jdbcType=VARCHAR},
+      </if>
+      <if test="placeholder != null" >
+        #{placeholder,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update configs
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null" >
+        group = #{group,jdbcType=TINYINT},
+      </if>
+      <if test="groupTitle != null" >
+        group_title = #{groupTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="extra != null" >
+        extra = #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="datatype != null" >
+        datatype = #{datatype,jdbcType=VARCHAR},
+      </if>
+      <if test="nullmsg != null" >
+        nullmsg = #{nullmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="errormsg != null" >
+        errormsg = #{errormsg,jdbcType=VARCHAR},
+      </if>
+      <if test="placeholder != null" >
+        placeholder = #{placeholder,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" >
+    update configs
+    set type = #{type,jdbcType=TINYINT},
+      title = #{title,jdbcType=VARCHAR},
+      group = #{group,jdbcType=TINYINT},
+      group_title = #{groupTitle,jdbcType=VARCHAR},
+      extra = #{extra,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      datatype = #{datatype,jdbcType=VARCHAR},
+      nullmsg = #{nullmsg,jdbcType=VARCHAR},
+      errormsg = #{errormsg,jdbcType=VARCHAR},
+      placeholder = #{placeholder,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=SMALLINT},
+      value = #{value,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update configs
+    set type = #{type,jdbcType=TINYINT},
+      title = #{title,jdbcType=VARCHAR},
+      group = #{group,jdbcType=TINYINT},
+      group_title = #{groupTitle,jdbcType=VARCHAR},
+      extra = #{extra,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      datatype = #{datatype,jdbcType=VARCHAR},
+      nullmsg = #{nullmsg,jdbcType=VARCHAR},
+      errormsg = #{errormsg,jdbcType=VARCHAR},
+      placeholder = #{placeholder,jdbcType=VARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+
+
+  <select id="getConfigsListBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List2" />
+    FROM
+    configs conf
+    <where>
+      <if test="group  !=null  and group !=''">
+        and  conf.group in (${group})
+      </if>
+      <if test="notGroup  !=null  and notGroup !=''">
+        and  conf.group != 1 and  conf.group != 2
+      </if>
+    </where>
+    <if test="groupBy  !=null  and groupBy !=''">
+      GROUP BY  conf.group
+    </if>
+    order by conf.sort ASC
+  </select>
+
+  <update id="updateConfigs" >
+    <foreach collection="list" item="obj" index="index" separator=";">
+      update
+      configs
+      <set>
+        <if test="obj.utime != null" >
+          utime = #{obj.utime},
+        </if>
+        <if test="obj.value != null" >
+          value = #{obj.value}
+        </if>
+      </set>
+      <where>
+        id  = #{obj.id}
+      </where>
+    </foreach>
+  </update>
+
+  <select id="getValueById" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select
+    value
+    from configs
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+</mapper>

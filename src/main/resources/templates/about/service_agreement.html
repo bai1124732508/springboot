@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="row wrapper white-bg page-heading">
+		        <div class="col-sm-4">
+		            <ol class="breadcrumb">
+		                <li>主页</li>
+		                <li><strong>用户列表</strong></li>
+		            </ol>
+		        </div>
+		    </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+						<div class="search-area" id="toggle">
+							<form class="form-horizontal m-t" th:action="@{/about/service_agreement}" method="get">
+								<div class="form-group">
+									<label class="col-sm-1 control-label">状态：</label>
+									<div class="col-sm-3">
+										<select class="form-control" name="search['isShow']"  >
+											<option value="" th:selected="${search['isShow']==''}">全部</option>
+											<option value="0" th:selected="${search['isShow']=='0'}">启用</option>
+											<option value="1" th:selected="${search['isShow']=='1'}">禁用</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 col-sm-offset-1">
+										<button class="btn btn-primary" type="submit" onclick="resetPageNum();">搜索</button>
+										<a th:href="@{/about/service_agreement}" class="btn btn-default">撤销搜索</a>
+									</div>
+								</div>
+							</form>
+						</div>
+                        <div class="fixed-table-toolbar">
+							<div class="bars pull-left">
+								<a href="javascript:void(0);" class="btn btn-sm btn-primary search-toggle"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</a>
+								<span th:each="userUrl:${session.urlList}">
+									<span  th:if="${userUrl== 'about/service_agreement/state/0'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post" target-form="id" th:attr="url=@{/about/state(status=0)}" ><i class="fa fa-check"></i>&nbsp;&nbsp;启用</a>
+									</span>
+									<span  th:if="${userUrl== 'about/service_agreement/state/1'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post" target-form="id" th:attr="url=@{/about/state(status=1)}"><i class="fa fa-ban"></i>&nbsp;&nbsp;禁用</a>
+									</span>
+								</span>
+							</div>
+						</div>
+                        <div class="example-wrap">
+                            <div class="example">
+                            	<form  action="" method="get" th:action="@{/about/service_agreement}" id="form">
+                            	<input name="search['isShow']" type="hidden" class="form-control"  th:value="${search['isShow']}"/>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" class="i-checks check-all " /></th>
+											<th >序号</th>
+											<th >发布者</th>
+                                            <th>是否显示 </th>
+											<th>发布时间</th>
+                                            <th >查看次数 </th>
+											<th >操作</th>
+                                        </tr>
+                                    </thead>
+									<tbody>
+										<tr th:each="index ,iterStat: ${page.list}">
+											<td><input type="checkbox" class="i-checks ids" name="id[]" th:value="${index.id}"/></td>
+											<td th:text="${(iterStat.index+1)}">{$vo.id}</td>
+											<td th:text="${index.authMemberName}"></td>
+											<td>
+												<i th:class="${index.isShow == 0} ?'fa fa-check text-navy':'fa fa-check fa-close'"></i>
+											</td>
+											<td th:text="${#dates.format(index.ctime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+											<td th:text="${index.count}"></td>
+											<td>
+												<div class="actions">
+													<span th:each="menuUrl:${session.urlList}">
+														<span  th:if="${menuUrl== 'about/service_agreement/edit'}">
+															<a th:href="@{/about/edit(id=${index.id})}" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i> 编辑 </a>
+													  	</span>
+														<span  th:if="${menuUrl== 'about/service_agreement/look'}">
+															<a th:href="@{/about/look(id=${index.id})}" class="btn btn-xs btn-white"><i class="fa fa-eye"></i> 查看 </a>
+														</span>
+
+													 </span>
+												</span>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+                                </table>
+									<div th:include="base/page::body"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	</body>
+	<script src="/js/page.js"></script>
+	<div th:include="base/header::footer"></div>
+</html>

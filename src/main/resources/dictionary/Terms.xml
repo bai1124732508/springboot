@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<terms>
+	<!--日志的类型 -->
+	<category id="SysLog_logType">
+	 	<term id="0" name="未知" hiddenValue="0" displayValue="Unknown "></term>
+	  	<term id="1" name="登录" hiddenValue="1" displayValue="Sign in"></term>
+		<term id="2" name="权限管理" hiddenValue="2" displayValue="Privilege management"></term>
+	</category>
+	<!--登录的类型 -->
+	<category id="SysLog_equipmentType">
+		<term id="0" name="web" hiddenValue="0" displayValue="web "></term>
+		<term id="1" name="app" hiddenValue="1" displayValue="app"></term>
+	</category>
+
+
+	<!-- 消息的状态  未发布 已发布-->
+	<category id="message_status">
+		<term id="0" name="未发布" hiddenValue="0" displayValue="未发布"></term>
+		<term id="1" name="已发布" hiddenValue="1" displayValue="已发布"></term>
+	</category>
+
+	<!-- 消息的类型  系统消息 告警消息 故障消息-->
+	<category id="message_type">
+		<term id="0" name="系统消息" hiddenValue="0" displayValue="系统消息"></term>
+		<term id="1" name="告警消息" hiddenValue="1" displayValue="告警消息"></term>
+		<term id="2" name="故障消息" hiddenValue="2" displayValue="故障消息"></term>
+	</category>
+
+
+	<!-- 使用帮助 -->
+	<category id="help_type">
+		<term id="0" name="使用帮助" hiddenValue="0" displayValue="Use help"></term>
+		<term id="1" name="常见问题" hiddenValue="1" displayValue="Common problem"></term>
+	</category>
+	<!-- 刷新频率 -->
+	<category id="frequency_of_data">
+		<term id="0" name="30秒" hiddenValue="0" displayValue="30 seconds"></term>
+		<term id="1" name="1分钟" hiddenValue="1" displayValue="1 minutes"></term>
+		<term id="2" name="2分钟" hiddenValue="1" displayValue="2 minutes"></term>
+		<term id="3" name="3分钟" hiddenValue="1" displayValue="3 minutes"></term>
+		<term id="4" name="5分钟" hiddenValue="1" displayValue="5 minutes"></term>
+		<term id="5" name="10分钟" hiddenValue="1" displayValue="10 minutes"></term>
+	</category>
+
+
+</terms>

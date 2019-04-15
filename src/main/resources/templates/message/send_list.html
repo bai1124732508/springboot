@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="row wrapper white-bg page-heading">
+		        <div class="col-sm-4">
+		            <ol class="breadcrumb">
+		                <li>主页</li>
+		                <li><strong>消息列表</strong></li>
+		            </ol>
+		        </div>
+		    </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+						<div class="search-area" id="toggle">
+							<form class="form-horizontal m-t" th:action="@{/message/send_list}" method="get">
+								<div class="form-group">
+									<label class="col-sm-1 control-label">消息标题：</label>
+									<div class="col-sm-3">
+										<input name="search['title']"  type="text" class="form-control"  th:value="${search['title']}"/>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>消息标题</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-1 control-label">消息状态：</label>
+									<div class="col-sm-3">
+										<select class="form-control" name="search['status']"  >
+											<option value="" th:selected="${search['status']==''}">全部</option>
+											<option value="0" th:selected="${search['status']=='0'}">未发布</option>
+											<option value="1" th:selected="${search['status']=='1'}">已发布</option>
+										</select>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>消息状态</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 col-sm-offset-1">
+										<button class="btn btn-primary" type="submit" onclick="resetPageNum();">搜索</button>
+										<a th:href="@{/message/send_list}" class="btn btn-default">撤销搜索</a>
+									</div>
+								</div>
+							</form>
+						</div>
+                        <div class="fixed-table-toolbar">
+							<div class="bars pull-left">
+								<a href="javascript:void(0);" class="btn btn-sm btn-primary search-toggle"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</a>
+								<span th:each="userUrl:${session.urlList}">
+									<span  th:if="${userUrl== 'message/add'}">
+									   <a th:href="@{/message/add}" class="btn btn-sm btn-primary" ><i class="fa fa-plus"></i>&nbsp;&nbsp;增加</a>
+									</span>
+								  	<span  th:if="${userUrl== 'message/remove'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post" target-form="id" th:attr="url=@{/message/remove}"><i class="fa fa-close"></i>&nbsp;&nbsp;删除</a>
+									</span>
+								</span>
+							</div>
+						</div>
+                        <div class="example-wrap">
+                            <div class="example">
+                            	<form  action="" method="get" th:action="@{/message/send_list}" id="form">
+                            		<input name="search['title']" type="hidden" class="form-control"  th:value="${search['title']}"/>
+									<input name="search['type']" type="hidden" class="form-control"  th:value="${search['type']}"/>
+									<input name="search['status']" type="hidden" class="form-control"  th:value="${search['status']}"/>
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th><input type="checkbox" class="i-checks check-all " /></th>
+												<th >ID</th>
+												<th >标题</th>
+												<th >修改时间 </th>
+												<th >发布人员 </th>
+												<th >发布状态</th>
+												<th >操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="index ,iterStat: ${page.list}">
+												<td><input type="checkbox" class="i-checks ids" name="id[]" th:value="${index.id}"/></td>
+												<td th:text="${index.id}"></td>
+												<td th:text="${index.title}"></td>
+												<td th:text="${#dates.format(index.utime, 'yyyy-MM-dd HH:mm:ss')}" ></td>
+												<td th:text="${index.authMemberName}"></td>
+												<td th:text="${index.statusStr}"></td>
+												<td>
+													<div class="actions">
+														<span th:each="menuUrl:${session.urlList}">
+															<span  th:if="${menuUrl== 'message/edit'} and  ${index.status != 1 }">
+																<a th:href="@{/message/edit(id=${index.id})}" class="btn btn-xs btn-white"><i class="fa fa-pencil"></i> 编辑 </a>
+															</span>
+															<span  th:if="${menuUrl== 'message/remove'}">
+																<a href="javascript:void(0);"  class="btn btn-xs btn-white confirm tabledel ajax-post" th:attr="url=@{/message/remove(id=${index.id})}"><i class="fa fa-times-circle"></i> 删除 </a>
+															</span>
+															<span  th:if="${menuUrl== 'message/look'}">
+																<a th:href="@{/message/look(id=${index.id})}" class="btn btn-xs btn-white"><i class="fa fa-eye"></i> 查看 </a>
+															</span>
+														 </span>
+													</span>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div th:include="base/page::body"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	</body>
+	<script src="/js/page.js"></script>
+	<div th:include="base/header::footer"></div>
+</html>

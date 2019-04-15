@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.MessageLogMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.MessageLog" >
+    
+    <!-- 文档ID -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    
+    <!-- 用户的id -->
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    
+    <!-- 消息的id -->
+    <result column="message_id" property="messageId" jdbcType="VARCHAR" />
+    
+    <!-- 消息的分类 0.系统消息 1.告警消息 2.故障消息（Term中配置） -->
+    <result column="type" property="type" jdbcType="BIT" />
+    
+    <!-- 0.消息未读 1.消息已读 -->
+    <result column="is_look" property="isLook" jdbcType="BIT" />
+    
+    <!-- 创建时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    
+    <!-- 创建时间 -->
+    <result column="utime" property="utime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, message_id, type, is_look, ctime, utime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from message_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into message_log (id, uid, message_id, 
+      type, is_look, ctime, utime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{messageId,jdbcType=VARCHAR}, 
+      #{type,jdbcType=BIT}, #{isLook,jdbcType=BIT}, #{ctime,jdbcType=TIMESTAMP}, #{utime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" >
+    insert into message_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="isLook != null" >
+        is_look,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="utime != null" >
+        utime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="isLook != null" >
+        #{isLook,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update message_log
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        message_id = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="isLook != null" >
+        is_look = #{isLook,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update message_log
+    set uid = #{uid,jdbcType=VARCHAR},
+      message_id = #{messageId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIT},
+      is_look = #{isLook,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <insert id="insertMessageLogByList">
+    insert into message_log (id, uid, message_id,message_log.type, is_look, ctime )
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+        #{item.id},#{item.uid},#{item.messageId},#{item.type},#{item.isLook},#{item.ctime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="getMessageCountByUid" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    SELECT
+        COUNT(msg.id) AS id,
+        msg.type
+    FROM
+        message_log msg
+    WHERE
+        msg.uid = #{uid}
+    AND msg.is_look = 0
+    GROUP BY
+        msg.type
+  </select>
+
+
+
+</mapper>

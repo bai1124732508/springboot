@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.AboutAndServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.AboutAndService" >
+    
+    <!-- 标识 -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    
+    <!-- 用户标识 -->
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    
+    <!-- 关于我们里边的图片 -->
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    
+    <!-- 被查看的次数 -->
+    <result column="count" property="count" jdbcType="INTEGER" />
+    
+    <!-- 0.关于我们  1.服务协议 -->
+    <result column="type" property="type" jdbcType="BIT" />
+    
+    <!-- 0.显示 1.不显示 -->
+    <result column="is_show" property="isShow" jdbcType="BIT" />
+    
+    <!-- 创建时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="utime" property="utime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fhzm.entity.generator.AboutAndService" extends="BaseResultMap" >
+    <result column="info" property="info" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_id, logo, count, type, is_show, ctime, utime
+  </sql>
+  <sql id="Blob_Column_List" >
+    info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from about_and_service
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from about_and_service
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into about_and_service (id, create_id, logo, 
+      count, type, is_show, ctime, 
+      utime, info)
+    values (#{id,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{type,jdbcType=BIT}, #{isShow,jdbcType=BIT}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{utime,jdbcType=TIMESTAMP}, #{info,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" >
+    insert into about_and_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="utime != null" >
+        utime,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update about_and_service
+    <set >
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" >
+    update about_and_service
+    set create_id = #{createId,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      type = #{type,jdbcType=BIT},
+      is_show = #{isShow,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP},
+      info = #{info,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update about_and_service
+    set create_id = #{createId,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      type = #{type,jdbcType=BIT},
+      is_show = #{isShow,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="getAboutList" parameterType="com.fhzm.entity.generator.BaseQueryVo" resultMap="BaseResultMap" >
+    SELECT
+    aboutUs.id, aboutUs.create_id, aboutUs.count, aboutUs.type, aboutUs.is_show,
+    aboutUs.ctime, aboutUs.utime,authMer.nickname AS authMemberName
+    FROM
+    about_and_service aboutUs
+    left  JOIN auth_member authMer ON aboutUs.create_id = authMer.uid
+    <where>
+      <if test="search != null">
+        <if test="search.type != null and search.type!=''">
+          and aboutUs.type = #{search.type}
+        </if>
+        <if test=" search.isShow != null and search.isShow!=''">
+          and aboutUs.is_show = #{search.isShow}
+        </if>
+      </if>
+    </where>
+    ORDER BY aboutUs.ctime DESC
+  </select>
+
+  <update id="updateAboutState">
+    update about_and_service
+    <set>
+      <if test="status != null" >
+        ${fied} = #{status}
+      </if>
+    </set>
+    <where>
+      id in
+      (<foreach collection="list" item="obj" index="index" separator=",">
+      #{obj}
+    </foreach>)
+    </where>
+  </update>
+
+  <delete id="deleteByLanguageId" parameterType="java.lang.String">
+    delete  from about_and_service where language = #{languageId}
+  </delete>
+  <select id="getAboutAndServiceBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    about_and_service
+    <where>
+      <if test="type != null and type != '' "    >
+        type = #{type}
+      </if>
+      <if test="is_show != null and is_show != '' "    >
+        is_show = #{is_show}
+      </if>
+    </where>
+    limit 1 ;
+  </select>
+
+
+
+
+
+</mapper>

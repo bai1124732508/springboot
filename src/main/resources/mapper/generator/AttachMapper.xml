@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.AttachMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.Attach" >
+    
+    <!-- 附件ID -->
+    <id column="attach_id" property="attachId" jdbcType="VARCHAR" />
+    
+    <!-- 上传时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    
+    <!-- 附件名称 -->
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    
+    <!-- 附件格式 -->
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    
+    <!-- 附件大小 -->
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    
+    <!-- 附件扩展名 -->
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    
+    <!-- 图片的md5值 -->
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+    
+    <!-- 附件哈希值 -->
+    <result column="hash" property="hash" jdbcType="VARCHAR" />
+    
+    <!-- 统一的is_del -->
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+    
+    <!-- 保存路径 -->
+    <result column="save_path" property="savePath" jdbcType="VARCHAR" />
+    
+    <!-- 保存名称 -->
+    <result column="save_name" property="saveName" jdbcType="VARCHAR" />
+    
+    <!-- 附件保存的域ID（用于拆分附件存储到不同的服务器） -->
+    <result column="save_domain" property="saveDomain" jdbcType="TINYINT" />
+    
+    <!-- 来源类型，0：网站；1：手机网页版；2：android；3：iphone -->
+    <result column="from" property="from" jdbcType="TINYINT" />
+    
+    <!-- 图片宽度 -->
+    <result column="width" property="width" jdbcType="INTEGER" />
+    
+    <!-- 图片高度 -->
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="mime" property="mime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attach_id, ctime, `name`, `type`, `size`, extension, md5, hash, is_del, save_path, save_name,
+    save_domain, `from`, width, height, mime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from attach
+    where attach_id = #{attachId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from attach
+    where attach_id = #{attachId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into attach (attach_id, ctime, `name`,
+      `type`, `size`, extension,
+      md5, hash, is_del, save_path, 
+      save_name, save_domain, `from`,
+      width, height, mime
+      )
+    values (#{attachId,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{extension,jdbcType=VARCHAR}, 
+      #{md5,jdbcType=VARCHAR}, #{hash,jdbcType=VARCHAR}, #{isDel,jdbcType=BIT}, #{savePath,jdbcType=VARCHAR}, 
+      #{saveName,jdbcType=VARCHAR}, #{saveDomain,jdbcType=TINYINT}, #{from,jdbcType=TINYINT}, 
+      #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{mime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" >
+    insert into attach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attachId != null" >
+        attach_id,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="name != null" >
+        `name`,
+      </if>
+      <if test="type != null" >
+        `type`,
+      </if>
+      <if test="size != null" >
+        `size`,
+      </if>
+      <if test="extension != null" >
+        extension,
+      </if>
+      <if test="md5 != null" >
+        md5,
+      </if>
+      <if test="hash != null" >
+        hash,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="savePath != null" >
+        save_path,
+      </if>
+      <if test="saveName != null" >
+        save_name,
+      </if>
+      <if test="saveDomain != null" >
+        save_domain,
+      </if>
+      <if test="from != null" >
+        `from`,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="mime != null" >
+        mime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attachId != null" >
+        #{attachId,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null" >
+        #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="hash != null" >
+        #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=BIT},
+      </if>
+      <if test="savePath != null" >
+        #{savePath,jdbcType=VARCHAR},
+      </if>
+      <if test="saveName != null" >
+        #{saveName,jdbcType=VARCHAR},
+      </if>
+      <if test="saveDomain != null" >
+        #{saveDomain,jdbcType=TINYINT},
+      </if>
+      <if test="from != null" >
+        #{from,jdbcType=TINYINT},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="mime != null" >
+        #{mime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update attach
+    <set >
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        `size`= #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="extension != null" >
+        extension = #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="hash != null" >
+        hash = #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=BIT},
+      </if>
+      <if test="savePath != null" >
+        save_path = #{savePath,jdbcType=VARCHAR},
+      </if>
+      <if test="saveName != null" >
+        save_name = #{saveName,jdbcType=VARCHAR},
+      </if>
+      <if test="saveDomain != null" >
+        save_domain = #{saveDomain,jdbcType=TINYINT},
+      </if>
+      <if test="from != null" >
+        `from` = #{from,jdbcType=TINYINT},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="mime != null" >
+        mime = #{mime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where attach_id = #{attachId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update attach
+    set ctime = #{ctime,jdbcType=TIMESTAMP},
+      `name` = #{name,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=VARCHAR},
+      extension = #{extension,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=VARCHAR},
+      hash = #{hash,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=BIT},
+      save_path = #{savePath,jdbcType=VARCHAR},
+      save_name = #{saveName,jdbcType=VARCHAR},
+      save_domain = #{saveDomain,jdbcType=TINYINT},
+      `from` = #{from,jdbcType=TINYINT},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      mime = #{mime,jdbcType=VARCHAR}
+    where attach_id = #{attachId,jdbcType=VARCHAR}
+  </update>
+  <select id="getAttachByHashcode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from attach
+    where hash = #{hash,jdbcType=VARCHAR}
+    limit 1
+  </select>
+</mapper>

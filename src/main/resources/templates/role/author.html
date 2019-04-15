@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:crm="http://thymeleafexamples">
+<div th:include="base/header::head"></div>
+<body  class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="row wrapper white-bg page-heading">
+	        <div class="col-sm-4">
+	            <ol class="breadcrumb">
+	                <li>主页</li>
+	                <li><a th:href="@{/role/index}">角色管理</a></li>
+	                <li><strong>访问授权</strong></li>
+	            </ol>
+	        </div>
+	    </div>
+		<div class="ibox-content">
+			<div class="row row-lg">
+				<div class="col-sm-12">
+					<div class="col-sm-12">
+						<div class="tabs-container">
+								<div class="tab-content">
+									<div class="tab-pane active">
+										<div class="panel-body">
+											<form id="f" th:action="@{/role/author_add}" class="form-horizontal m-t">
+											<div class="col-sm-12">
+												<ul class="todo-list ui-sortable">
+													<li th:each="rule : ${ruleCutomList}">
+														<input type="checkbox" th:value="${rule.id}" th:attr="checked=${rule.checked}"  name="rules" class="i-checks parent-check" th:id="'f-'+${rule.id}" >
+														<label class="" th:for="'f-'+${rule.id}" th:text="${rule.title}"></label>
+														<ul class="todo-list ui-sortable" th:if="${rule.ruleCustomList!=''}">
+															<li th:each="rulet : ${rule.ruleCustomList}">
+																<input type="checkbox" th:value="${rulet.id}" th:attr="data=@{${rulet.pid}}" th:checked="${rulet.checked}"  name="rules" class="i-checks child-check" th:id="'f-'+${rulet.id}">
+																<input type="hidden" value="${rulet.type}">
+																<label class="" th:for="'f-'+${rulet.id}" th:text="${rulet.title}">首页</label>
+																<ul class="todo-list ui-sortable" th:if="${rulet.ruleCustomList!=''}">
+																	<li>
+																		<span th:each="rules : ${rulet.ruleCustomList}">
+																			<input type="checkbox"  th:value="${rules.id}" th:attr="data=@{${rulet.pid}},data-dir=@{${rules.pid}}" th:checked="${rules.checked}"   name="rules" class="i-checks son-check" th:id="'f-'+${rules.id}">
+																			<input type="hidden" value="${rules.type}">
+																			<label class="" style="font-weight: 100" th:for="'f-'+${rules.id}" th:text="${rules.title}">添加管理员&nbsp;&nbsp;&nbsp;&nbsp;</label>
+																		</span>
+																	</li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+											</ul>
+											</div>
+											<input type="hidden" th:value="${id}" name="id">
+											<div class="form-group">
+												<div class="col-sm-2 col-sm-offset-1" style="margin-top:30px;">
+													<input type="hidden" value="32" name="group_id"/>
+													 <span th:each="menuUrl:${session.urlList}">
+											             <span  th:if="${menuUrl== 'role/author_add'}">
+								     			           <button class="btn btn-primary" type="submit">提交</button>
+								  			             </span>
+										              </span>
+													<a th:href="@{/role/index}" class="btn btn-default" >返回</a>
+												</div>
+											</div>
+											</form>
+										</div>
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>	
+</div>
+</body>
+<div th:include="base/header::footer"></div>
+<script type="text/javascript">
+$(function(){
+	//最顶级操作
+	$(".parent-check").on('ifClicked',function(event){
+		var value = $(this).val();
+		$("input:checkbox[data="+value+"]").iCheck('check')
+	});
+	$(".parent-check").on('ifUnchecked',function(event){
+		var value = $(this).val();
+		$("input:checkbox[data="+value+"]").iCheck('uncheck');
+	});
+	//中间的子集
+	$(".child-check").on('ifClicked',function(event){
+		var pid = $(this).attr('data');
+		if($(this).is(':checked')){
+			$(this).iCheck('uncheck');
+			var value = $(this).val();
+			$("input:checkbox[data-dir="+value+"]").iCheck('uncheck')
+			if($("input:checkbox[data="+pid+"]:checked").length==0){
+				$("#f-"+pid).iCheck('uncheck');
+			}
+		}else{
+			 $(this).iCheck('check');
+				var value = $(this).val();
+				$("input:checkbox[data-dir="+value+"]").iCheck('check');
+			 if($("input:checkbox[data="+pid+"]:checked").length>0){
+				$("#f-"+pid).iCheck('check');
+			 }
+		}
+	});
+	//最后的子集
+	$(".son-check").on('ifClicked',function(event){
+		var pid = $(this).attr('data');
+		var cid = $(this).attr('data-dir');
+		if($(this).is(':checked')){
+			$(this).iCheck('uncheck');
+			if($("input:checkbox[data-dir="+cid+"]:checked").length==0){
+				$("#f-"+cid).iCheck('uncheck');
+			}
+			if($("input:checkbox[data="+pid+"]:checked").length==0){
+				$("#f-"+pid).iCheck('uncheck');
+			}
+		}else{
+			 $(this).iCheck('check');
+			 if($("input:checkbox[data-dir="+cid+"]:checked").length>0){
+					$("#f-"+cid).iCheck('check');
+				}
+			 if($("input:checkbox[data="+pid+"]:checked").length>0){
+				$("#f-"+pid).iCheck('check');
+			 }
+		}
+	});
+})
+</script>
+</html>

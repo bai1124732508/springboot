@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.AuthGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.AuthGroup" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="CHAR" />
+    <result column="module" property="module" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    
+    <!-- 组描述 -->
+    <result column="info" property="info" jdbcType="CHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="leavel" property="leavel" jdbcType="INTEGER" />
+    
+    <!-- 是否是叶子节点1是0否 -->
+    <result column="isleaf" property="isleaf" jdbcType="BIT" />
+    
+    <!-- 层级id 逗号分隔 -->
+    <result column="leavelidds" property="leavelidds" jdbcType="VARCHAR" />
+    
+    <!-- 是否是隐藏角色0否1是 -->
+    <result column="ishide" property="ishide" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="BIT" />
+    <!-- 创建时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <!-- 修改时间 -->
+    <result column="utime" property="utime" jdbcType="TIMESTAMP" />
+
+    <result column="rules" property="rules" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, module, status, type, info, pid, num, leavel, isleaf, leavelidds, ishide, 
+    sort, ctime,utime,rules
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from auth_group
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from auth_group
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into auth_group (id, title, module, 
+      status, type, info, pid, 
+      num, leavel, isleaf, leavelidds, 
+      ishide, sort, rules, ctime, utime)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=CHAR}, #{module,jdbcType=CHAR}, 
+      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{info,jdbcType=CHAR}, #{pid,jdbcType=VARCHAR}, 
+      #{num,jdbcType=INTEGER}, #{leavel,jdbcType=INTEGER}, #{isleaf,jdbcType=BIT}, #{leavelidds,jdbcType=VARCHAR}, 
+      #{ishide,jdbcType=BIT}, #{sort,jdbcType=BIT}, #{rules,jdbcType=LONGVARCHAR}, #{ctime,jdbcType=TIMESTAMP}, #{utime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" >
+    insert into auth_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="module != null" >
+        module,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="leavel != null" >
+        leavel,
+      </if>
+      <if test="isleaf != null" >
+        isleaf,
+      </if>
+      <if test="leavelidds != null" >
+        leavelidds,
+      </if>
+      <if test="ishide != null" >
+        ishide,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="rules != null" >
+        rules,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="utime != null" >
+        utime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=CHAR},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=CHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="leavel != null" >
+        #{leavel,jdbcType=INTEGER},
+      </if>
+      <if test="isleaf != null" >
+        #{isleaf,jdbcType=BIT},
+      </if>
+      <if test="leavelidds != null" >
+        #{leavelidds,jdbcType=VARCHAR},
+      </if>
+      <if test="ishide != null" >
+        #{ishide,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=BIT},
+      </if>
+      <if test="rules != null" >
+        #{rules,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update auth_group
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=CHAR},
+      </if>
+      <if test="module != null" >
+        module = #{module,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=CHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="leavel != null" >
+        leavel = #{leavel,jdbcType=INTEGER},
+      </if>
+      <if test="isleaf != null" >
+        isleaf = #{isleaf,jdbcType=BIT},
+      </if>
+      <if test="leavelidds != null" >
+        leavelidds = #{leavelidds,jdbcType=VARCHAR},
+      </if>
+      <if test="ishide != null" >
+        ishide = #{ishide,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=BIT},
+      </if>
+      <if test="rules != null" >
+        rules = #{rules,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" >
+    update auth_group
+    set title = #{title,jdbcType=CHAR},
+      module = #{module,jdbcType=CHAR},
+      status = #{status,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      info = #{info,jdbcType=CHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      leavel = #{leavel,jdbcType=INTEGER},
+      isleaf = #{isleaf,jdbcType=BIT},
+      leavelidds = #{leavelidds,jdbcType=VARCHAR},
+      ishide = #{ishide,jdbcType=BIT},
+      sort = #{sort,jdbcType=BIT},
+      rules = #{rules,jdbcType=LONGVARCHAR},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update auth_group
+    set title = #{title,jdbcType=CHAR},
+      module = #{module,jdbcType=CHAR},
+      status = #{status,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      info = #{info,jdbcType=CHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      leavel = #{leavel,jdbcType=INTEGER},
+      isleaf = #{isleaf,jdbcType=BIT},
+      leavelidds = #{leavelidds,jdbcType=VARCHAR},
+      ishide = #{ishide,jdbcType=BIT},
+      sort = #{sort,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getRoleListByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from
+      auth_group
+    where
+      id in (
+        select
+          group_id
+        from
+          auth_group_access
+        where
+          uid = #{uid}
+        )
+      and status = 1 limit 1;
+  </select>
+  <select id="getRoleByPage" resultMap="BaseResultMap" parameterType="com.fhzm.entity.generator.BaseQueryVo" >
+    select
+      <include refid="Base_Column_List" />,
+      (
+        select COUNT(uid) from auth_group_access where group_id = auth_group.id
+      )userCount
+      from auth_group
+      <where>
+        status!='3'
+        <if test="search !=null and search.name !=null  and search.name !=''">
+          and title like CONCAT(CONCAT('%',#{search.name}),'%')
+        </if>
+        <if test="search !=null and search.pid !=null  and search.pid !=''">
+          and pid = #{search.pid}
+        </if>
+        <if test="search.status !=null  and search.status !='' ">
+          and status =  #{search.status}
+        </if>
+        <if test="search.uid!=1">
+          and id !=1 and ishide=0
+        </if>
+      </where>
+      order by sort DESC
+  </select>
+
+  <update id="changeRoleStatus">
+    update auth_group
+    set
+      status = #{status}
+    where  id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </update>
+  <select id="getAuthGroupListBySearch" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+      auth.id ,auth.title
+    FROM
+      auth_group auth
+    <where>
+      auth.id != 1 and auth.ishide != 1 AND auth.rules IS NOT NULL AND auth.rules !=''
+      <if test="uid  !=null  and uid !=''">
+        and  auth.module = #{uid}
+      </if>
+    </where>
+    order by auth.sort DESC
+  </select>
+
+
+
+</mapper>

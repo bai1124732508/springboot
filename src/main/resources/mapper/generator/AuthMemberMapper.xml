@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.AuthMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.AuthMember" >
+    
+    <!-- 用户的id -->
+    <id column="uid" property="uid" jdbcType="VARCHAR" />
+    
+    <!-- 用户的登陆账号 -->
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    
+    <!-- 用户的登陆密码 -->
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    
+    <!-- 性别 -->
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    
+    <!-- 用户的昵称 -->
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    
+    <!-- 手机号 -->
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    
+    <!-- 邮箱 -->
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    
+    <!-- 用户启用禁用状态，1启用，2为禁用 -->
+    <result column="status" property="status" jdbcType="BIT" />
+    
+    <!-- 创建时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    
+    <!-- 更新时间 -->
+    <result column="utime" property="utime" jdbcType="TIMESTAMP" />
+    
+    <!-- 国家id -->
+    <result column="country" property="country" jdbcType="INTEGER" />
+    
+    <!-- 省份 -->
+    <result column="province" property="province" jdbcType="INTEGER" />
+    
+    <!-- 城市 -->
+    <result column="city" property="city" jdbcType="INTEGER" />
+    
+    <!-- 余额 -->
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    
+    <!-- 是否删除，0为未删除，1为删除 -->
+    <result column="is_remove" property="isRemove" jdbcType="TINYINT" />
+    
+    <!-- 登陆次数 -->
+    <result column="login_count" property="loginCount" jdbcType="SMALLINT" />
+    
+    <!-- 最后登录时间 -->
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    
+    <!-- 创建人id -->
+    <result column="cuid" property="cuid" jdbcType="VARCHAR" />
+    
+    <!-- 用户地址 -->
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    
+    <!-- 是否是后台添加 0不是（前台注册-用户列表）1 是（后台成员） -->
+    <result column="is_manage" property="isManage" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, username, password, sex, nickname, phone, email, status, ctime, utime, country, 
+    province, city, balance, is_remove, login_count, last_login_time, cuid, address, 
+    is_manage
+  </sql>
+
+  <sql id="Base_Column_List2" >
+    member.uid, member.username, member.password, member.sex, member.nickname, member.phone, member.email, member.status, member.ctime, member.utime, member.country,
+    member.province, member.city, member.balance, member.is_remove, member.login_count, member.last_login_time,
+   member.cuid, member.address, member.is_manage
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from auth_member
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from auth_member
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into auth_member (uid, username, password, 
+      sex, nickname, phone, 
+      email, status, ctime, 
+      utime, country, province, 
+      city, balance, is_remove, 
+      login_count, last_login_time, cuid, 
+      address, is_manage)
+    values (#{uid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{utime,jdbcType=TIMESTAMP}, #{country,jdbcType=INTEGER}, #{province,jdbcType=INTEGER}, 
+      #{city,jdbcType=INTEGER}, #{balance,jdbcType=DECIMAL}, #{isRemove,jdbcType=TINYINT}, 
+      #{loginCount,jdbcType=SMALLINT}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{cuid,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{isManage,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" >
+    insert into auth_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="utime != null" >
+        utime,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="isRemove != null" >
+        is_remove,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="cuid != null" >
+        cuid,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="isManage != null" >
+        is_manage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="isRemove != null" >
+        #{isRemove,jdbcType=TINYINT},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=SMALLINT},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cuid != null" >
+        #{cuid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="isManage != null" >
+        #{isManage,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update auth_member
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="isRemove != null" >
+        is_remove = #{isRemove,jdbcType=TINYINT},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=SMALLINT},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cuid != null" >
+        cuid = #{cuid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="isManage != null" >
+        is_manage = #{isManage,jdbcType=TINYINT},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update auth_member
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP},
+      country = #{country,jdbcType=INTEGER},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=DECIMAL},
+      is_remove = #{isRemove,jdbcType=TINYINT},
+      login_count = #{loginCount,jdbcType=SMALLINT},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      cuid = #{cuid,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      is_manage = #{isManage,jdbcType=TINYINT}
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="checkAuthMemberByMember" parameterType="com.fhzm.entity.generator.AuthMember" resultMap="BaseResultMap">
+    SELECT
+    <include refid = "Base_Column_List" />
+    FROM
+    auth_member member
+    <where>
+      and ( username = #{ username } or phone = #{ username } or email = #{ username } )
+      AND password = #{ password } limit 1;
+    </where>
+  </select>
+
+  <select id="getCkAuthMemberCustomByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid = "Base_Column_List" />
+    FROM
+    auth_member
+    <where>
+      is_remove = 0  AND username = #{username} limit 1;
+    </where>
+  </select>
+
+  <select id="getMemberList" resultMap="BaseResultMap" parameterType="com.fhzm.entity.generator.BaseQueryVo">
+    select
+    <include refid="Base_Column_List2" />,authGroup.title AS authGroupName
+    from
+    auth_member member
+    LEFT JOIN auth_group_access access on member.uid = access.uid
+    LEFT JOIN auth_group authGroup on access.group_id = authGroup.id
+    <where>
+      member.is_remove = 0 and member.uid !=1
+      <if test="search!=null">
+        <if test="search.uid!=1">
+          and member.cuid = #{search.uid}
+        </if>
+        <if test="search.isManage != null and search.isManage != '' ">
+          and member.is_manage = #{search.isManage}
+        </if>
+        <if test="search.name!=null and search.name!=''">
+          and (username like '%${search.name}%' or phone like '%${search.name}%' or email like '%${search.name}%' )
+        </if>
+        <if test="search.nickname!=null and search.nickname!=''">
+          and nickname like '%${search.nickname}%'
+        </if>
+      </if>
+    </where>
+    order BY member.ctime DESC
+  </select>
+
+
+  <select id="validform" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from auth_member
+    <where>
+      ${name}=#{param}
+      <if test="uid != null and uid != ''">
+        and uid!=${uid}
+      </if>
+    </where>
+  </select>
+
+  <update id="updateAuthMemberState">
+    update auth_member
+    <set>
+      <if test="status != null" >
+        ${fied} = #{status}
+      </if>
+    </set>
+    <where>
+      uid in (<foreach collection="list" item="obj" index="index" separator=",">
+      #{obj}
+    </foreach>)
+    </where>
+  </update>
+
+  <select id="getUserListBySearch" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    member.uid,member.nickname,member.phone,member.email,member.username
+    from
+    auth_member member
+    <if test="groupId != null and groupId != '' ">
+      left join auth_group_access access ON member.uid = access.uid
+    </if>
+    <where>
+      member.is_remove = 0 and member.uid !=1
+      <if test="groupId != null and groupId != '' ">
+        and access.group_id = #{groupId}
+      </if>
+      <if test="isManage != null and isManage != '' ">
+        and member.is_manage = #{isManage}
+      </if>
+      <if test="name!=null and name!=''">
+        and (username like '%${name}%' or phone like '%${name}%' or email like '%${name}%' )
+      </if>
+      <if test="nickname!=null and nickname!=''">
+        and nickname like '%${nickname}%'
+      </if>
+    </where>
+    order BY member.ctime DESC
+  </select>
+  <select id="getAppIsExistenceByAccount" resultMap="BaseResultMap">
+    SELECT
+    member.uid,member.nickname,member.phone,member.email,member.username
+    ,member.password,member.status
+    FROM
+    auth_member member
+    <where>
+      member.is_remove = 0 and member.uid !=1 and ( member.phone = #{account} or member.email = #{ account } )
+    </where>
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="row wrapper white-bg page-heading">
+		        <div class="col-sm-4">
+		            <ol class="breadcrumb">
+		                <li>主页</li>
+		                <li><strong>消息列表</strong></li>
+		            </ol>
+		        </div>
+		    </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+						<div class="search-area" id="toggle">
+							<form class="form-horizontal m-t" th:action="@{/message/receive_list}" method="get">
+								<div class="form-group">
+									<label class="col-sm-1 control-label">消息标题：</label>
+									<div class="col-sm-3">
+										<input name="search['title']"  type="text" class="form-control"  th:value="${search['title']}"/>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>消息标题</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-1 control-label">消息类型：</label>
+									<div class="col-sm-3">
+										<select class="form-control" name="search['type']">
+											<option value="" th:selected="${search['type']==''}">全部</option>
+											<option value="1" th:selected="${search['type']=='0'}">系统消息</option>
+											<option value="1" th:selected="${search['type']=='1'}">告警消息</option>
+											<option value="2" th:selected="${search['type']=='2'}">故障消息</option>
+										</select>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>消息类型</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 col-sm-offset-1">
+										<button class="btn btn-primary" type="submit" onclick="resetPageNum();">搜索</button>
+										<a th:href="@{/message/receive_list}" class="btn btn-default">撤销搜索</a>
+									</div>
+								</div>
+							</form>
+						</div>
+                        <div class="fixed-table-toolbar">
+							<div class="bars pull-left">
+								<a href="javascript:void(0);" class="btn btn-sm btn-primary search-toggle"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</a>
+								<span th:each="userUrl:${session.urlList}">
+								  	<span  th:if="${userUrl== 'message/receive_remove'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post" target-form="id" th:attr="url=@{/message/receive_remove}"><i class="fa fa-close"></i>&nbsp;&nbsp;删除</a>
+									</span>
+								</span>
+							</div>
+						</div>
+                        <div class="example-wrap">
+                            <div class="example">
+                            	<form  action="" method="get" th:action="@{/message/receive_list}" id="form">
+                            		<input name="search['title']" type="hidden" class="form-control"  th:value="${search['title']}"/>
+									<input name="search['type']" type="hidden" class="form-control"  th:value="${search['type']}"/>
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th><input type="checkbox" class="i-checks check-all " /></th>
+												<th >ID</th>
+												<th >标题</th>
+												<th >接收时间 </th>
+												<th >发布人员 </th>
+												<th >消息类型</th>
+												<th >操作</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="index ,iterStat: ${page.list}">
+												<td><input type="checkbox" class="i-checks ids" name="id[]" th:value="${index.logId}"/></td>
+												<td th:text="${index.id}"></td>
+												<td th:text="${index.title}"></td>
+												<td th:text="${#dates.format(index.ctime, 'yyyy-MM-dd HH:mm:ss')}" ></td>
+												<td th:text="${index.authMemberName}"></td>
+												<td th:text="${index.typeStr}"></td>
+												<td>
+													<div class="actions">
+														<span th:each="menuUrl:${session.urlList}">
+															<span  th:if="${menuUrl== 'message/receive_remove'}">
+																<a href="javascript:void(0);"  class="btn btn-xs btn-white confirm tabledel ajax-post" th:attr="url=@{/message/receive_remove(id=${index.logId})}"><i class="fa fa-times-circle"></i> 删除 </a>
+															</span>
+															<span  th:if="${menuUrl== 'message/receive_look'}">
+																<a th:href="@{/message/look(id=${index.id})}" class="btn btn-xs btn-white"><i class="fa fa-eye"></i> 查看 </a>
+															</span>
+														 </span>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div th:include="base/page::body"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	</body>
+	<script src="/js/page.js"></script>
+	<div th:include="base/header::footer"></div>
+</html>

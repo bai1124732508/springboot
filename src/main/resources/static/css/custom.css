@@ -1,0 +1,156 @@
+.delete{
+	height:25px;
+	background:#666;
+	width:80px;
+	color:#fff;
+	line-height:25px;
+	text-align:center;
+	position:relative;
+	bottom:25px;
+	filter:alpha(opacity=50);  
+    -moz-opacity:0.5;  
+    -khtml-opacity: 0.5;  
+    opacity: 0.5;
+	cursor:pointer;
+}
+.deletefile{
+	height:30px;
+	background:#666;
+	width:100px;
+	color:#fff;
+	line-height:25px;
+	text-align:center;
+	position:relative;
+	bottom:25px;
+	filter:alpha(opacity=50);  
+    -moz-opacity:0.5;  
+    -khtml-opacity: 0.5;  
+    opacity: 0.5;
+	cursor:pointer;
+}
+
+
+
+ .imgInputContainer{
+        height:80px;
+        background:url('/img/upload.png');
+        position:relative;
+        width: 80px;
+    }
+    .imgInput{
+        height:256px;
+        overflow: hidden;
+        font-size: 300px;
+        position:absolute;
+        right:0;
+        top:0;
+        opacity: 0;
+        filter:alpha(opacity=0);
+        cursor:pointer;
+    }
+    
+     .fileInputContainer{
+        height:45px;
+        background:url('/img/fileupload.png');
+        position:relative;
+        width: 130px;
+    }
+    .fileInput{
+        height:40px;
+        overflow: hidden;
+        font-size: 300px;
+        position:absolute;
+        right:0;
+        top:0;
+        opacity: 0;
+        filter:alpha(opacity=0);
+        cursor:pointer;
+    }
+    
+        .impoetmember{
+        width:60px;
+        height:40px;
+        overflow: hidden;
+        font-size: 300px;
+        position:absolute;
+        right:0;
+        top:0;
+        opacity: 0;
+        filter:alpha(opacity=0);
+        cursor:pointer;
+    }
+    
+     .downline{
+ border-color: #878787;
+border-style: solid;
+border-top-width: 0px;
+ border-right-width: 0px;
+border-bottom-width: 1px;
+ border-left-width: 0px;
+ width: 320px
+ 
+ 
+ }
+ 
+ 
+ 
+ 
+ 	.pl40{
+	    padding-left: 40px;
+	}
+	.fs18{
+		font-size: 18px;	
+	}
+	.mr10{
+		margin-right:10px;
+	}
+	.title{
+		border-bottom: 1px solid;
+		margin-bottom: 10px;
+	}
+	.items{
+	    line-height: 26px;
+	}
+	.fb{
+		font-weight: bold;
+	}
+	.f333{
+		color:#444;
+	}
+	.textLine{
+        white-space: pre-wrap; /* css-3 */ 
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */ 
+        white-space: -pre-wrap; /* Opera 4-6 */ 
+        white-space: -o-pre-wrap; /* Opera 7 */ 
+        word-wrap: break-word; /* Internet Explorer 5.5+ */ 
+    }
+    /**±à¼­*/
+   .editable{
+  	border:1px solid #A6C8FF;
+  	margin-bottom: 8px;
+  }
+  .noEditable{
+  	border:1px solid #FFFFFF;
+  	margin-bottom: 8px;
+  }
+ .editInput{
+	width: 50px;
+    height: 20px;
+    border:1px solid #A6C8FF;
+  }
+ .noEditInput{
+	width: 50px;
+    height: 20px;
+    border:1px solid #FFFFFF;
+  }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    

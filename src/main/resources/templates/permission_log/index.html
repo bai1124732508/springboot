@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body  class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+            <div class="row wrapper white-bg page-heading">
+		        <div class="col-sm-4">
+		            <ol class="breadcrumb">
+		                <li>主页</li>
+		                <li><strong>操作日志</strong></li>
+		            </ol>
+		        </div>
+		    </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+						<div class="search-area" id="toggle">
+						<form class="form-horizontal m-t" action="" method="get" th:action="@{/permission_log/index}" >
+								<div class="form-group">
+									<label class="col-sm-1 control-label">请输入值搜索：</label>
+									<div class="col-sm-3">
+										<input name="search['description']" type="text" class="form-control" th:value="${search['description']}"/>
+										<span id="cname-error" class="help-block m-b-none"><i class="fa fa-info-circle"></i>请输入内容进行搜索</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 col-sm-offset-1">
+										<button class="btn btn-primary" type="submit" onclick="resetPageNum();">搜索</button>
+										<a th:href="|/permission_log/index|" class="btn btn-default">撤销搜索</a>
+									</div>
+								</div>
+							</form>
+						</div>
+                        <div class="fixed-table-toolbar">
+							<div class="bars pull-left">
+								<a href="#" class="btn btn-sm btn-primary search-toggle"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</a>
+								<input type="hidden" id="all" value="all"/>
+								<span th:each="menuUrl:${session.urlList}">
+									<span  th:if="${menuUrl== 'permission_log/delete'}">
+										<a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post"  th:attr="url=@{/permission_log/delete}"><i class="fa fa-close"></i>&nbsp;&nbsp;清空 </a>
+									</span>
+									<span  th:if="${menuUrl== 'permission_log/export'}">
+										 <a href="javascript:void(0);" class="btn btn-sm btn-primary" th:onclick="|exportExcel();|">导出</a>
+									</span>
+								</span>
+							</div>
+						</div>
+						<form action="" id="form" th:action="@{/permission_log/index}" method="get">
+                        <div class="example-wrap">
+                            <div class="example">
+                            	<input name="search['description']" type="hidden" th:value="${search['description']}"/>
+								<input name="search['logType']" type="hidden" th:value="${search['logType']}"/>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th >日志时间</th>
+											<th >终端设备</th>
+											<th >操作类型</th>
+											<th >操作人员</th>
+											<th >IP地址</th>
+											<th >内容</th>
+                                           <!-- <th>操作</th>-->
+                                        </tr>
+                                    </thead>
+									<tbody>
+										<tr th:each="obj:${page.list}">
+											<td th:text="${#dates.format(obj.ctime, 'yyyy-MM-dd HH:mm:ss')}" ></td>
+											<td th:text="${obj.equipmentTypeStr}">0</td>
+											<td th:text="${obj.logTypeStr}"></td>
+											<td th:text="${obj.createName}"></td>
+											<td th:text="${obj.ip}"></td>
+											<td th:text="${obj.description}+'('+${obj.authGroupName}+')'"></td>
+											<!--<td>
+												<span th:each="menuUrl:${session.urlList}" th:if="${obj.id!='1' }">
+													<span  th:if="${menuUrl== 'permission_log/look'}">
+														<a th:attr="url=@{/permission_log/look(id=${obj.id})}"  href="javascript:void(0);" class="btn btn-xs btn-white confirm tabledel ajax-post" ><i class="fa fa-times-circle"></i> 删除 </a>
+													</span>
+												</span>
+											</td>-->
+										</tr>
+									</tbody>
+                                </table>
+                            </div>
+							 <div th:include="base/page::body"></div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+		 </div>
+        </div>
+    </div>
+	</body>
+	<script src="/js/page.js"></script>	
+	<div th:include="base/header::footer"></div>
+	<script>
+		function exportExcel(){
+			var logType=$("#logType").val();
+			var data = {
+				logType: logType
+			};
+			window.location.href = '/permission_log/export?' + $.param(data);
+		}
+	</script>
+
+</html>
+

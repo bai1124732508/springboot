@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.Menu" >
+    
+    <!-- 文档ID -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    
+    <!-- 标题 -->
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    
+    <!-- 上级分类ID -->
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    
+    <!-- 排序（同级有效） -->
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    
+    <!-- 链接地址 -->
+    <result column="url" property="url" jdbcType="CHAR" />
+    
+    <!-- 是否隐藏 1是 2否 -->
+    <result column="hide" property="hide" jdbcType="BIT" />
+    
+    <!-- 提示 -->
+    <result column="tip" property="tip" jdbcType="VARCHAR" />
+    
+    <!-- 分组 -->
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    
+    <!-- 是否仅开发者模式可见 1是 2否 -->
+    <result column="is_dev" property="isDev" jdbcType="BIT" />
+    
+    <!-- 状态,默认为1 开启，2为禁用 -->
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="BIT" />
+    
+    <!-- 创建时间 -->
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    
+    <!-- 修改时间 -->
+    <result column="utime" property="utime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, pid, sort, url, hide, tip, group_id, is_dev, status, icon, level, ctime, 
+    utime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from menu
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" >
+    insert into menu (id, title, pid, 
+      sort, url, hide, tip, 
+      group_id, is_dev, status, icon, 
+      level, ctime, utime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{url,jdbcType=CHAR}, #{hide,jdbcType=BIT}, #{tip,jdbcType=VARCHAR}, 
+      #{groupId,jdbcType=VARCHAR}, #{isDev,jdbcType=BIT}, #{status,jdbcType=BIT}, #{icon,jdbcType=VARCHAR}, 
+      #{level,jdbcType=BIT}, #{ctime,jdbcType=TIMESTAMP}, #{utime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" >
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="hide != null" >
+        hide,
+      </if>
+      <if test="tip != null" >
+        tip,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="isDev != null" >
+        is_dev,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="utime != null" >
+        utime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=CHAR},
+      </if>
+      <if test="hide != null" >
+        #{hide,jdbcType=BIT},
+      </if>
+      <if test="tip != null" >
+        #{tip,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDev != null" >
+        #{isDev,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update menu
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=CHAR},
+      </if>
+      <if test="hide != null" >
+        hide = #{hide,jdbcType=BIT},
+      </if>
+      <if test="tip != null" >
+        tip = #{tip,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDev != null" >
+        is_dev = #{isDev,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null" >
+        utime = #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update menu
+    set title = #{title,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      url = #{url,jdbcType=CHAR},
+      hide = #{hide,jdbcType=BIT},
+      tip = #{tip,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      is_dev = #{isDev,jdbcType=BIT},
+      status = #{status,jdbcType=BIT},
+      icon = #{icon,jdbcType=VARCHAR},
+      level = #{level,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      utime = #{utime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getAllMenuCustom" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    where status='1' and hide='2'
+    order by sort ASC
+  </select>
+
+  <select id="getMenuListByMenuIdList"  resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    <where>
+      id in
+      (<foreach collection="list" item="obj" index="index" separator=",">
+      #{obj}
+    </foreach>)
+      and status='1' and hide='2'
+    </where>
+    order by sort ASC
+  </select>
+
+  <select id="getListByVo" resultMap="BaseResultMap" parameterType="com.fhzm.entity.generator.BaseQueryVo" >
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    <where>
+      1=1
+      <if test="search != null">
+        <if test="search.pid != null and search.pid!=''">
+          <![CDATA[and pid ='${search.pid}']]>
+        </if>
+        <if test="search.name != null and search.name!=''">
+          <![CDATA[and title like '%${search.name}%']]>
+        </if>
+      </if>
+    </where>
+    order by sort ASC
+  </select>
+
+  <select id="getMenuByTitle" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    <where>
+      and title = #{title}
+    </where>
+  </select>
+
+  <select id="getMenuListByPidList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    <where>
+      pid in
+      (<foreach collection="list" item="obj" index="index" separator=",">
+      #{obj}
+    </foreach>)
+    </where>
+    order by sort ASC
+  </select>
+
+  <delete id="removeByPrimaryKeys">
+    delete from menu where id in
+    (<foreach collection="list" item="obj" index="index" separator=",">
+    #{obj}
+  </foreach>)
+  </delete>
+
+  <update id="updateMenuState">
+    update menu
+    <set>
+      <if test="status != null" >
+        ${fied} = #{status}
+      </if>
+    </set>
+    <where>
+      id in
+      (<foreach collection="list" item="obj" index="index" separator=",">
+      #{obj}
+    </foreach>)
+    </where>
+  </update>
+
+  <select id="getMenuByUrl" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    <where>
+      url = #{url}
+    </where>
+    limit 1
+  </select>
+
+  <select id="getRoleListByType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from menu
+    <where>
+      pid = #{type}
+    </where>
+  </select>
+
+
+</mapper>

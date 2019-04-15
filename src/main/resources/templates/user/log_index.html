@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:include="base/header::head"></div>
+<body  class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="row wrapper white-bg page-heading">
+            <div class="col-sm-4">
+                <ol class="breadcrumb">
+                    <li>主页</li>
+                    <li><strong>操作日志</strong></li>
+                </ol>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div class="fixed-table-toolbar">
+                        <div class="bars pull-left">
+                            <span th:each="menuUrl:${session.urlList}">
+                                <span  th:if="${menuUrl== 'user/log_delete'}">
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary confirm ajax-post"  th:attr="url=@{/permission_log/delete}"><i class="fa fa-close"></i>&nbsp;&nbsp;清空 </a>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <form action="" id="form" th:action="@{/user/log_index}" method="get">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th >日志时间</th>
+                                            <th >IP地址</th>
+                                            <th >地区</th>
+                                            <th >终端设备</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="obj:${page.list}">
+                                            <td th:text="${#dates.format(obj.ctime, 'yyyy-MM-dd HH:mm:ss')}" ></td>
+                                            <td th:text="${obj.ip}"></td>
+                                            <td th:text="${obj.ipAddress}"></td>
+                                            <td th:text="${obj.equipmentTypeStr}">0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div th:include="base/page::body"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/page.js"></script>
+<div th:include="base/header::footer"></div>
+</html>
+

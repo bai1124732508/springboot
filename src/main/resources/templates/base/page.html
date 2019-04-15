@@ -1,0 +1,45 @@
+	<!DOCTYPE html>
+	<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<body>
+	<div id="page_Div" class="page_Div" style="text-align: center;">
+	</div>
+	
+	 <!-- 当前页数 -->
+	 <input id="pageinfo_pageNum" type="hidden" name="pageNum" th:value="${page.pageNum }"/>
+	 <!-- 每页大小 -->
+	<!--  <input id="pageinfo_pageSize" type="hidden"  th:value="${page.pageSize}"/> -->
+	 <!-- 总数量 -->
+	 <input id="pageinfo_total" type="hidden"  th:value="${page.total }"/>
+	 <!-- 总页数 -->
+	 <input id="pageinfo_pages" type="hidden" name="pages"  th:value="${page.pages }"/>
+	 
+	 <span  id="totalcount" style="display: none"  th:if="${page.pages>1} "> 
+		<label style="text-align:center;height:26px;line-height:26px;">
+			总共:<i  th:text="${page.total}" ></i>条</p>
+		</label>
+		<label style="height:26px;line-height:26px;">
+			<span >每页显示</span>
+			<select name="pageSize" style="height: 25px; width: 50px;" onchange="resetsubmitform();" id="pageinfo_pageSize">
+			   <option value="10" th:selected="${page.pageSize==10}">10</option>
+			   <option value="20" th:selected="${page.pageSize==20}">20</option>
+			   <option value="30" th:selected="${page.pageSize==30}">30</option>
+			 </select>
+			<span >个</span>
+		</label>
+	 </span>
+   <div style="text-align: center;">
+	<span id="totalcount" th:if="${page.pages==1} "> 
+	<label style="text-align: center; height: 26px; line-height: 26px;">
+			总共:<i th:text="${page.total}"></i>条
+	</label> 
+	<label style="height: 26px; line-height: 26px;"><span >每页显示</span>
+	    <select name="pageSize" style="height: 25px; width: 50px;" onchange="resetsubmitform();" id="pageinfo_pageSize">
+				<option value="10" th:selected="${page.pageSize==10}">10</option>
+				<option value="20" th:selected="${page.pageSize==20}">20</option>
+				<option value="30" th:selected="${page.pageSize==30}">30</option>
+		</select> <span >个</span>
+	</label>
+	</span>
+ </div> 
+</body>
+    </html>

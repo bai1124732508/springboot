@@ -1,0 +1,23 @@
+<body>
+<link rel="stylesheet" type="text/css" href="/css/plugins/simditor/simditor.css" />
+<textarea  style="width:100%;height:400px;" th:name="${name}" class="ueditor" th:id="${name}" th:text="${text}" datatype="*"   nullmsg="请填写内容" ></textarea>
+<script type="text/javascript" src="/js/plugins/simditor/module.js"></script>
+<script type="text/javascript" src="/js/plugins/simditor/uploader.js"></script>
+<script type="text/javascript" src="/js/plugins/simditor/hotkeys.js"></script>
+<script type="text/javascript" src="/js/plugins/simditor/simditor.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var wordNum = [[${wordNum}]];
+    if(!wordNum){
+	wordNum = 10000;
+}
+$(document).ready(function () {
+    var id = [[${name}]];
+    var editor=new Simditor({
+        textarea:$("#"+id),
+        upload:{
+
+        }
+    })
+});
+</script>
+</body>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fhzm.dao.generator.WorldAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.fhzm.entity.generator.WorldArea" >
+    
+    <!-- ID -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    
+    <!-- 父id -->
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    
+    <!-- 简称 -->
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    
+    <!-- 名称 -->
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    
+    <!-- 全称 -->
+    <result column="merger_name" property="mergerName" jdbcType="VARCHAR" />
+    
+    <!-- 层级 0 1 2 省市区县 -->
+    <result column="level" property="level" jdbcType="TINYINT" />
+    
+    <!-- 拼音 -->
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    
+    <!-- 长途区号 -->
+    <result column="phone_code" property="phoneCode" jdbcType="VARCHAR" />
+    
+    <!-- 邮编 -->
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    
+    <!-- 首字母 -->
+    <result column="first" property="first" jdbcType="VARCHAR" />
+    
+    <!-- 经度 -->
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    
+    <!-- 纬度 -->
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, short_name, name, merger_name, level, pinyin, phone_code, zip_code, first, 
+    lng, lat, area_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from world_area
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from world_area
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" >
+    insert into world_area (id, pid, short_name, 
+      name, merger_name, level, 
+      pinyin, phone_code, zip_code, 
+      first, lng, lat, area_code
+      )
+    values (#{id,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{shortName,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{mergerName,jdbcType=VARCHAR}, #{level,jdbcType=TINYINT}, 
+      #{pinyin,jdbcType=VARCHAR}, #{phoneCode,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR}, 
+      #{first,jdbcType=VARCHAR}, #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" >
+    insert into world_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="mergerName != null" >
+        merger_name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="pinyin != null" >
+        pinyin,
+      </if>
+      <if test="phoneCode != null" >
+        phone_code,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+      <if test="first != null" >
+        first,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="areaCode != null" >
+        area_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mergerName != null" >
+        #{mergerName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=TINYINT},
+      </if>
+      <if test="pinyin != null" >
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCode != null" >
+        #{phoneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="first != null" >
+        #{first,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update world_area
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="shortName != null" >
+        short_name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mergerName != null" >
+        merger_name = #{mergerName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=TINYINT},
+      </if>
+      <if test="pinyin != null" >
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCode != null" >
+        phone_code = #{phoneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="first != null" >
+        first = #{first,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" >
+    update world_area
+    set pid = #{pid,jdbcType=INTEGER},
+      short_name = #{shortName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      merger_name = #{mergerName,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      phone_code = #{phoneCode,jdbcType=VARCHAR},
+      zip_code = #{zipCode,jdbcType=VARCHAR},
+      first = #{first,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getCountryList" resultMap="BaseResultMap">
+   SELECT
+        id,
+        short_name,
+        NAME,
+        pinyin
+    FROM
+        world_area
+    WHERE
+        pid = #{pid}
+    ORDER BY
+        pinyin ASC
+  </select>
+
+
+</mapper>

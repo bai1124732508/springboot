@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body class="gray-bg">
+	    <div class="wrapper wrapper-content animated fadeInRight">
+	                <div class="ibox float-e-margins">
+	                    <div class="row wrapper white-bg page-heading">
+					        <div class="col-sm-4">
+					            <ol class="breadcrumb">
+					                <li>主页</li>
+					                <li><a th:href="@{/member/index}">管理员管理</a></li>
+					                <li><strong>添加管理员</strong></li>
+					            </ol>
+					        </div>
+					    </div>
+	                    <div class="ibox-content">
+	                        <form id="f"  th:action="@{/message/edit}" class="form-horizontal m-t" method="post">
+								<div class="ibox-content">
+									<div class="text-center article-title">
+										<h1 >
+											标题
+										</h1>
+										<h4 th:text="${#dates.format(message.ctime, 'yyyy-MM-dd HH:mm:ss')}"></h4>
+									</div>
+									<div th:utext="${message.info}">
+
+									</div>
+								</div>
+								<div class="form-group" style="    text-align: center;">
+									<div >
+										<button class="btn btn-default historygo" type="button" >返回</button>
+									</div>
+								</div>
+	                        </form>
+	                    </div>
+	        </div>
+	    </div>
+	</body>
+	<div th:include="base/header::footer"></div>
+</html>

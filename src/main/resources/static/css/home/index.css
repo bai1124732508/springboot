@@ -1,0 +1,44 @@
+#Suggest{
+	border: 1px solid #C4C2C7; 
+	background-color:#FFFFFF;
+	width: 500px;
+	margin-left:0px;
+	padding-left:0px;
+	list-style-type:none;
+	position: absolute;
+	top: 50px;
+	left: 60px;
+/* 	border-radius:10px; */
+	
+}
+#Suggest .J_menuItem{
+	color:black;
+	height: 40px;
+	font-size:14px;
+	line-height:40px;
+	margin-left: 10px;
+	display:block;
+	border-bottom:1px solid #E5E6E7;
+}
+
+#Suggest li:HOVER{
+	background-color: #C4C2C7;
+}
+.navbar-static-side{
+	top:63px!important;
+}
+.navbar-fixed-top{
+	position: fixed !important;
+}
+.logoSvg{
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	margin-left: 50px;
+	margin-bottom: 11px;
+}
+.logoSpan{
+	font-size: 25px;
+	color: #fff;
+}
+

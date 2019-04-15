@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<div th:include="base/header::head"></div>
+	<body class="gray-bg">
+	    <div class="wrapper wrapper-content animated fadeInRight">
+	                <div class="ibox float-e-margins">
+	                    <div class="row wrapper white-bg page-heading">
+					        <div class="col-sm-4">
+					            <ol class="breadcrumb">
+					                <li>主页</li>
+					                <li><a th:href="@{/member/index}">管理员管理</a></li>
+					                <li><strong>添加管理员</strong></li>
+					            </ol>
+					        </div>
+					    </div>
+	                    <div class="ibox-content">
+	                        <form id="f"  th:action="@{/message/edit}" class="form-horizontal m-t" method="post">
+								<input type="hidden" name="status" id="status" value=""/>
+								<input type="hidden" name="id"  th:value="${message.id}"/>
+								<div class="form-group">
+									<label class="col-sm-1 control-label" >消息标题：</label>
+									<div class="col-sm-4">
+										<input name="title" th:value="${message.title}" class="form-control" type="text" datatype="*1-50"  nullmsg="消息标题范围在1~50位之间的字符串！" placeholder="请输入消息标题" errormsg="消息标题范围在1~50位之间的字符串！" />
+										<span class="help-block m-b-none Validform_checktip" ><i class="fa fa-info-circle"></i>请输入消息标题</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-1 control-label" >所属角色：</label>
+									<div class="col-sm-4">
+										<select class="form-control " name="groupId" onchange="cthink.messageRoleChange(this);" datatype="*" nullmsg="请选择所属角色" placeholder="请选择所属角色" >
+											<option value="all" th:selected ="${message.groupId == 'all' }"  th:text="#{Basics.all}">全部</option>
+											<option  th:each="obj:${list}" th:value="${obj.id}" th:selected ="${message.groupId == obj.id }"  th:text="${obj.title}"></option>
+										</select>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>请选择所属角色</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-1 control-label" >接收对象：</label>
+									<div class="col-sm-4">
+										<select class="form-control select2" name="receiveUid" datatype="*" multiple="multiple"  nullmsg="请选择接收对象">
+											<option value="all" th:selected ="${message.receiveUid == 'all' }"  th:text="#{Basics.all}" id="receiving">全部</option>
+											<option  th:each="obj:${userList}" th:value="${obj.uid}" th:text="${obj.nickname}" th:selected="${#strings.contains(message.receiveUid,obj.uid)}"></option>
+										</select>
+										<span  class="help-block m-b-none"><i class="fa fa-info-circle"></i>请选择接收对象</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-1 control-label"  >消息内容</label>
+									<div class="col-sm-7" >
+										<div class="uditor" th:include="base/ueditor::body"   th:with="name=info,wordNum=50000,text=${message.info}" ></div>
+									</div>
+								</div>
+	                            <div class="form-group">
+	                                <div class="col-sm-4 col-sm-offset-1">
+	                                    <button class="btn btn-warning" type="button" onclick="cthink.subStatusForm('0')">保存</button>
+										<button class="btn btn-primary" type="button"  onclick="cthink.subStatusForm('1')">发布</button>
+										<button class="btn btn-default historygo" type="button" >返回</button>
+	                                </div>
+	                            </div>
+	                        </form>
+	                    </div>
+	        </div>
+	    </div>
+	</body>
+	<script src="/js/md5.js"></script>
+	<div th:include="base/header::footer"></div>
+	<script type="text/javascript" th:inline="javascript">
+	  var receiveUid = [[${message.receiveUid}]];
+	  $(".select2").select2({
+		 width:'100%'
+	  });
+
+	</script>
+</html>
